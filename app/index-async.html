@@ -30,15 +30,17 @@
     $script([
       'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
-      'app.js',
-      'view1/view1.js',
+      'app.config.js',
+            'app.module.js',
+      'accueil/accueil.component.js',
+      'accueil/accueil.module.js',
       'view2/view2.js',
       'components/version/version.js',
       'components/version/version-directive.js',
       'components/version/interpolate-filter.js'
     ], function() {
       // when all is done, execute bootstrap angular application
-      angular.bootstrap(document, ['myApp']);
+      angular.bootstrap(document, ['poleRecherche']);
     });
   </script>
   <title>My AngularJS App</title>

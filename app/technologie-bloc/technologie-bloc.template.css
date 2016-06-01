@@ -1,0 +1,26 @@
+.tiny-padding {
+    padding: 8px
+}
+
+.tech-card {
+    margin: 2%;
+    margin-left: 10%;
+    width: 33%;
+    position: relative;
+    overflow: hidden;
+    -webkit-box-shadow: 8px 8px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 8px 8px rgba(0, 0, 0, 0.7);
+    box-shadow: 8px 8px rgba(0, 0, 0, 0.7);
+}
+
+.caption {
+    position: absolute;
+    top: 67%;
+    height:33%;
+    right: 0;
+    background: rgba(66, 139, 202, 0.75);
+        width: 100%;
+    padding: 2%;
+    color: #fff !important;
+    z-index: 2;
+}

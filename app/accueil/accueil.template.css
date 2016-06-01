@@ -3,15 +3,25 @@
     height: 100vh;
 }
 
+.techs-tabs > li > a {
+    color: grey;
+}
+
+.techs-tabs > li.active > a {
+    color: white;
+}
+
+/* change bootstrap default color for tabs */
 .techs-tabs > li.active > a,
 .techs-tabs > li.active > a:hover,
 .techs-tabs > li.active > a:focus {
-    color: white;
     background-color: steelblue;
-    opacity:0.7;
 }
 
 .techs-tabs li {
     width: 50%;
     text-align: center;
+    background-color: black;
+    opacity:0.8;
 }
+

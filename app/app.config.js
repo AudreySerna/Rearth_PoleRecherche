@@ -11,7 +11,7 @@ config(['$locationProvider' ,'$routeProvider',
 
         $routeProvider.
         when('/welcome', {
-            template: "heyyo <accueil></accueil>"
+            template: "<accueil></accueil>"
         }).
         otherwise('/welcome');
     }

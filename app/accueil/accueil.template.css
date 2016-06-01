@@ -28,3 +28,8 @@
 .techs-tabs {
     border-bottom: none;
 }
+
+.technologies {
+    margin-left: 10%;
+    position: relative;
+}

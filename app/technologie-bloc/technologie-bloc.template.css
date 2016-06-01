@@ -3,8 +3,8 @@
 }
 
 .tech-card {
-    margin: 2%;
-    margin-left: 10%;
+    float: left;
+    margin: 3% 0 6% 6%;
     width: 33%;
     position: relative;
     overflow: hidden;
@@ -19,7 +19,7 @@
     height:33%;
     right: 0;
     background: rgba(66, 139, 202, 0.75);
-        width: 100%;
+    width: 100%;
     padding: 2%;
     color: #fff !important;
     z-index: 2;

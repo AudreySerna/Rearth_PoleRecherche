@@ -15,4 +15,10 @@ config(['$locationProvider' ,'$routeProvider',
         }).
         otherwise('/welcome');
     }
-]);
+])
+    .constant(
+        'TAB_NAME', {
+            DISCOVER : 'discover',
+            OWNED : 'my-techs'
+        }
+    );

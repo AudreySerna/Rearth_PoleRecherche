@@ -2,12 +2,11 @@
 
 <div>
     <div class="row">
-
         <div class="col-sm-12 technologies-bg">
             <div class="row">
                 <ul class="nav nav-tabs techs-tabs">
-                    <li role="presentation" class="active"><a href="#">Technologies à découvrir</a></li>
-                    <li role="presentation"><a href="#">Mes technologies</a></li>
+                    <li role="presentation" ng-class="{active: $ctrl.tab == $ctrl.tab_name.DISCOVER}"><a href="#!/{{$ctrl.tab_name.DISCOVER}}">Technologies à découvrir</a></li>
+                    <li role="presentation" ng-class="{active: $ctrl.tab == $ctrl.tab_name.OWNED}"><a href="#!/{{$ctrl.tab_name.OWNED}}">Mes technologies</a></li>
                 </ul>
             </div>
             <div class="row technologies">

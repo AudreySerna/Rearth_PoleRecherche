@@ -4,4 +4,4 @@
 'use strict';
 
 // Define the `phoneList` module
-angular.module('accueil', ['voletLateral', 'technologieBloc']);
+angular.module('accueil', ['technologieBloc']);

@@ -10,10 +10,13 @@ config(['$locationProvider' ,'$routeProvider',
         $locationProvider.hashPrefix('!');
 
         $routeProvider.
-        when('/welcome', {
-            template: "<accueil></accueil>"
+        when('/discover', {
+            template: "<accueil-discover></accueil-discover>"
         }).
-        otherwise('/welcome');
+        when('/my-techs', {
+            template: "<accueil-owned></accueil-owned>"
+        }).
+        otherwise('/discover');
     }
 ])
     .constant(

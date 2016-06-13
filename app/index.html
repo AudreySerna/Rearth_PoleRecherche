@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Bienvenue au Pôle Recherche</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="app.css"/>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="app.module.js"></script>
@@ -19,7 +19,14 @@
 <body>
 
 <div class="view-container">
-    <div ng-view class="view-frame"></div>
+    <div class="row">
+        <div class="col-sm-3">
+            <volet-lateral></volet-lateral>
+        </div>
+        <div class="col-sm-9">
+            <div ng-view class="view-frame"></div>
+        </div>
+    </div>
 </div>
 
 </body>

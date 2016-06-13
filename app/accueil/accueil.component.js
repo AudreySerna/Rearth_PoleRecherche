@@ -9,7 +9,5 @@ module('accueil').
 component('accueil', {
     templateUrl: 'accueil/accueil.template.html',
     controller: function AccueilController() {
-        this.disc = TAB_NAME.DISCOVER;
-        this.coucou = "hey";
     }
 });

@@ -7,7 +7,8 @@ angular.
 module('voletLateral').
 component('voletLateral', {
     templateUrl: 'volet-lateral/volet-lateral.template.html',
-    controller: function VoletLateralController() {
-        
+    controller: function VoletLateralController(TAB_NAME) {
+        this.disc = TAB_NAME.DISCOVER;
+        this.coucou = "hey";
     }
 });

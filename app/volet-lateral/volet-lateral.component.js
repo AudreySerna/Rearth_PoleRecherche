@@ -10,5 +10,7 @@ component('voletLateral', {
     controller: function VoletLateralController(TAB_NAME) {
         this.disc = TAB_NAME.DISCOVER;
         this.coucou = "hey";
+        this.guilde = {couleur: "#cb213d",
+                        nom: "Estounettes"}
     }
 });

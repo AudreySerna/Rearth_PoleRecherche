@@ -32,4 +32,6 @@
 .technologies {
     margin-left: 10%;
     position: relative;
+    height: 95%;
+    overflow: auto;
 }

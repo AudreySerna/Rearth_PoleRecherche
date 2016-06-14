@@ -7,6 +7,7 @@
 angular.module('poleRecherche', [
     //'ngAnimate',
     'ngRoute',
+    'ngSanitize',
     'voletLateral',
     'accueil'
 ]);

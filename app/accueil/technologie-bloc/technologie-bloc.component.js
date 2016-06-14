@@ -6,7 +6,7 @@
 angular.
 module('technologieBloc').
 component('technologieBloc', {
-    templateUrl: 'technologie-bloc/technologie-bloc.template.html',
+    templateUrl: 'accueil/technologie-bloc/technologie-bloc.template.html',
     controller: function technologieBlocController() {
         
     }

@@ -13,14 +13,17 @@
     </div><!-- /input-group -->
 </div>
 
+
 <div class="tiny-padding-left">
+
     <!-- FILTRES GUILDES -->
-    <div class="checkbox">
+    <div ng-repeat="$guilde in $ctrl.guildes" class="checkbox">
         <label>
             <input type="checkbox" value="hey">
-            <filtre-guilde guilde="$ctrl.guilde"></filtre-guilde>
+            <filtre-guilde guilde="$guilde"></filtre-guilde>
         </label>
     </div>
+
     <!-- AVEC OU SANS BREVET -->
     <div class="checkbox">
         <label>
@@ -28,6 +31,7 @@
             Filtres avec logo - brevet
         </label>
     </div>
+
     <!-- FONDS SUFFISANTS -->
     <div class="checkbox">
         <label>
@@ -36,6 +40,8 @@
         </label>
     </div>
 </div>
+
+
 <div class="tiny-padding-left">
     <hr>
     <div>

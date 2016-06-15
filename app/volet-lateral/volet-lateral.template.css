@@ -2,6 +2,11 @@
     padding-left: 8px
 }
 
+.tiny-padding-side {
+    padding-left: 8px;
+    padding-right: 8px
+}
+
 .logo-pr {
     width: 80%;
     margin-bottom: 10px;

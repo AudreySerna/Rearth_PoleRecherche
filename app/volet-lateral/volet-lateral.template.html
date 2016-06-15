@@ -1,6 +1,6 @@
 <link type="text/css" rel="stylesheet" href="volet-lateral/volet-lateral.template.css"/>
 
-<div class="tiny-padding-left">
+<div class="">
     <div align="middle">
         <img ng-src="assets/logos/Logo_PR.png" class="logo-pr"/>
     </div>
@@ -14,36 +14,41 @@
 </div>
 
 
-<div class="tiny-padding-left">
+<div class="tiny-padding-side">
 
     <!-- FILTRES GUILDES -->
-    <div ng-repeat="$guilde in $ctrl.guildes" class="checkbox">
-        <label>
-            <input type="checkbox" value="hey">
-            <filtre-guilde guilde="$guilde"></filtre-guilde>
-        </label>
+    <div class="row">
+        <div ng-repeat="$guilde in $ctrl.guildes" class="checkbox">
+            <label>
+                <input type="checkbox" value="hey">
+                <filtre-guilde guilde="$guilde"></filtre-guilde>
+            </label>
+        </div>
     </div>
 
     <!-- AVEC OU SANS BREVET -->
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" value="">
-            Filtres avec logo - brevet
-        </label>
+    <div class="row">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="">
+                Filtres avec logo - brevet
+            </label>
+        </div>
     </div>
 
     <!-- FONDS SUFFISANTS -->
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" value="">
-            Filtres avec logo - achetable
-        </label>
+    <div class="row">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="">
+                Filtres avec logo - achetable
+            </label>
+        </div>
     </div>
 </div>
 
-
-<div class="tiny-padding-left">
-    <hr>
+<hr>
+<div class="row tiny-padding-side">
     <div>
         <strong>Estelle Lepeigneux</strong>
     </div>

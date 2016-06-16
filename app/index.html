@@ -23,7 +23,37 @@
 
 <div class="view-container container-fluid">
     <div class="row">
-        <div class="col-sm-3">
+        <!-- Opening door for connexion -->
+        <div id="slider" class="slider container">
+            <div align="middle">
+                <img ng-src="assets/logos/Logo_PR.png" class="big-logo-pr"/>
+            </div>
+            <p>Bienvenue au Pôle Recherche. Merci de vous identifier.</p>
+            <div class="col-md-6 col-md-offset-3">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="matricule" class="col-sm-4 control-label">Matricule</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="matricule" placeholder="Matricule">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-4 control-label">Mot de passe</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="password" placeholder="Mot de passe">
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-valider col-sm-offset-4 col-sm-6">
+                                <button type="submit" class="btn btn-info">Valider</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button onclick="document.getElementById('slider').classList.toggle('closed');">Toggle slider</button>
+        </div>
+
+        <div class="col-sm-3 coucou">
             <volet-lateral></volet-lateral>
         </div>
         <div class="col-sm-9">

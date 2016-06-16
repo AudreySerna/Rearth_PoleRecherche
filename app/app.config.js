@@ -25,3 +25,7 @@ config(['$locationProvider' ,'$routeProvider',
             OWNED : 'my-techs'
         }
     );
+/*
+jQuery(document).ready(function(){
+    jQuery(this).find('.caption').slideDown(250);
+});*/

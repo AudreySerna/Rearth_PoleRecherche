@@ -23,8 +23,12 @@ config(['$locationProvider' ,'$routeProvider',
         'TAB_NAME', {
             DISCOVER : 'discover',
             OWNED : 'my-techs'
-        }
+        })
+    .constant(
+        'BACK_URL', 'http://localhost:3000/'
     );
+
+
 /*
 jQuery(document).ready(function(){
     jQuery(this).find('.caption').slideDown(250);

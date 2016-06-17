@@ -3,4 +3,4 @@
  */
 'use strict';
 
-angular.module('voletLateral', []);
+angular.module('voletLateral', ['core.guilde']);

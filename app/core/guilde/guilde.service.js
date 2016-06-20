@@ -7,7 +7,9 @@ angular.module('core.guilde').factory('Guilde', ['$resource',
     function ($resource) {
         return $resource('http://localhost:3000/guildes', {}, {
             query: {
-                method: 'GET'
+                method: 'GET',
+                isArray: true,
+                headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
             }
         });
     }

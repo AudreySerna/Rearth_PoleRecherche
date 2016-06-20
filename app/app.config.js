@@ -26,7 +26,10 @@ config(['$locationProvider' ,'$routeProvider',
         })
     .constant(
         'BACK_URL', 'http://localhost:3000/'
-    );
+    ).config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+    $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:8000';
+}])
 
 
 /*

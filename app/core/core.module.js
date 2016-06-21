@@ -4,4 +4,4 @@
 'use strict';
 
 // Define the `core` module
-angular.module('core', ['core.guilde']);
+angular.module('core', ['core.guilde', 'core.user']);

@@ -8,14 +8,10 @@ angular.
 module('voletLateral').
 component('voletLateral', {
     templateUrl: 'volet-lateral/volet-lateral.template.html',
-    controller: ['$http', 'Guilde', function VoletLateralController($http, Guilde, BACK_URL) {
-        /*this.guildes = [{
-                                couleur: "#cb213d",
-                                nom: "Estounettes"},
-            {
-                couleur: "#cb213d",
-                nom: "Lisettes"
-            }];*/
+    controller: ['$http', 'Guilde', 'User', function VoletLateralController($http, Guilde, User, BACK_URL) {
         this.guildes = Guilde.query();
+        this.user = User.get('coucou');
+        console.log(this.user);
+        console.log(this.guildes);
     }]
 });

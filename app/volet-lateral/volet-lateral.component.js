@@ -9,9 +9,12 @@ module('voletLateral').
 component('voletLateral', {
     templateUrl: 'volet-lateral/volet-lateral.template.html',
     controller: ['$http', 'Guilde', 'User', function VoletLateralController($http, Guilde, User, BACK_URL) {
+        var self = this;
+
         this.guildes = Guilde.query();
-        this.user = User.get('coucou');
-        console.log(this.user);
-        console.log(this.guildes);
+        //this.user = User.get('coucou');
+        User.get('salut').success(function(response){
+	        self.user = response;
+	    });
     }]
 });

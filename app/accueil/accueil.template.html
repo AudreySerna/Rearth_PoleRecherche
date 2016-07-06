@@ -9,11 +9,11 @@
                     <li role="presentation" ng-class="{active: $ctrl.tab == $ctrl.tab_name.OWNED}"><a href="#!/{{$ctrl.tab_name.OWNED}}">Mes technologies</a></li>
                 </ul>
             </div>
+            
             <div class="row technologies" ng-if="$ctrl.tab == $ctrl.tab_name.DISCOVER">
-                <technologie-rectangle></technologie-rectangle>
-                <technologie-rectangle></technologie-rectangle>
-                <technologie-rectangle></technologie-rectangle>
-                <technologie-rectangle></technologie-rectangle>
+                <a ng-repeat="tech in $ctrl.techs" href="#!/technology/{{tech.id}}">
+                    <technologie-rectangle></technologie-rectangle>
+                </a>
             </div>
             <div class="row technologies" ng-if="$ctrl.tab == $ctrl.tab_name.OWNED">
                 <technologie-bloc></technologie-bloc>
@@ -21,6 +21,7 @@
                 <technologie-bloc></technologie-bloc>
                 <technologie-bloc></technologie-bloc>
             </div>
+            
         </div>
     </div>
 </div>

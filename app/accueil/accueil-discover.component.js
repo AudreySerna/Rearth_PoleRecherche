@@ -9,7 +9,10 @@ module('accueil').
 component('accueilDiscover', {
     templateUrl: 'accueil/accueil.template.html',
     controller: function AccueilDiscoverController(TAB_NAME) {
+    	var self = this;
         this.tab = TAB_NAME.DISCOVER;
         this.tab_name = TAB_NAME; //injecting constant in view
+        this.techs = [{ id : '3'},
+        			 { id : '4'}]
     }
 });

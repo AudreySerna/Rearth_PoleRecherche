@@ -3,14 +3,8 @@
 }
 
 .tech-card {
-    float: left;
-    margin: 3% 0 6% 6%;
-    width: 33%;
-    position: relative;
     overflow: hidden;
-    -webkit-box-shadow: 8px 8px rgba(0, 0, 0, 0.7);
-    -moz-box-shadow: 8px 8px rgba(0, 0, 0, 0.7);
-    box-shadow: 8px 8px rgba(0, 0, 0, 0.7);
+    position: relative;
 }
 
 .caption {

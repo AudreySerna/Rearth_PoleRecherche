@@ -4,10 +4,13 @@
     <meta charset="utf-8">
     <title>Bienvenue au Pôle Recherche</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <script src="https://use.fontawesome.com/59c390bf14.js"></script>
     <link rel="stylesheet" href="app.css"/>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/ngModal/dist/ng-modal.js"></script>
+    <link rel="stylesheet" href="bower_components/ngModal/dist/ng-modal.css"/>
     <script src="app.module.js"></script>
     <script src="app.config.js"></script>
 
@@ -25,10 +28,15 @@
     <script src="core/user/user.module.js"></script>
     <script src="core/user/user.service.js"></script>
     <script src="core/filters/fullname.filter.js"></script>
+    <script src="core/directives/logo-valeur.directive.js"></script>
+
+    <script src="modal-technologie/modal-technologie.module.js"></script>
+    <script src="modal-technologie/modal-technologie.component.js"></script>
 
     <script src="volet-lateral/volet-lateral.module.js"></script>
     <script src="volet-lateral/volet-lateral.component.js"></script>
     <script src="volet-lateral/filtres/filtre-guilde.directive.js"></script>
+    <script src="volet-lateral/filtres/filtre-logo.directive.js"></script>
 </head>
 <body>
 
@@ -41,21 +49,22 @@
             </div>
             <p>Bienvenue au Pôle Recherche. Merci de vous identifier.</p>
             <div class="col-md-6 col-md-offset-3">
-                <form class="form-horizontal">
+                <form action="http://jenlab.iut-laval.univ-lemans.fr/webservice/xmlrpc/server.php?wstoken=02d1d49d6dcd67321987e99eb619254e" method="post" id="form" class="form-horizontal">
                     <div class="form-group">
-                        <label for="matricule" class="col-sm-4 control-label">Matricule</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="matricule" placeholder="Matricule">
+                        <label for="username" class="col-xs-4 control-label">Matricule</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="username" placeholder="Matricule">
                         </div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="password" class="col-sm-4 control-label">Mot de passe</label>
-                        <div class="col-sm-6">
+                        <label for="password" class="col-xs-4 control-label">Mot de passe</label>
+                        <div class="col-xs-6">
                             <input type="password" class="form-control" id="password" placeholder="Mot de passe">
                         </div>
                         <div class="form-group">
-                            <div class="btn-valider col-sm-offset-4 col-sm-6">
-                                <button type="submit" class="btn btn-info">Valider</button>
+                            <div class="btn-valider col-xs-offset-4 col-xs-6">
+                                <button type="submit" class="btn btn-info" ng-click="$ctrl.login()">Valider</button>
                             </div>
                         </div>
                     </div>
@@ -64,10 +73,10 @@
             <button onclick="document.getElementById('slider').classList.toggle('closed');">Toggle slider</button>
         </div>
 
-        <div class="col-sm-3 coucou">
+        <div class="col-xs-3">
             <volet-lateral></volet-lateral>
         </div>
-        <div class="col-sm-9">
+        <div class="col-xs-9">
             <div ng-view class="view-frame"></div>
         </div>
     </div>

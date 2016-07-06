@@ -16,9 +16,15 @@ config(['$locationProvider' ,'$routeProvider',
         when('/my-techs', {
             template: "<accueil-owned></accueil-owned>"
         }).
+        when('/technology/:id', {
+            template: "<accueil-discover></accueil-discover> <modal-technologie></modal-technologie>"
+        }).
         otherwise('/discover');
     }
 ])
+    .config(function(ngModalDefaultsProvider) {
+      ngModalDefaultsProvider.set('closeButtonHtml', 'Retour');
+})
     .constant(
         'TAB_NAME', {
             DISCOVER : 'discover',

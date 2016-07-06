@@ -2,7 +2,7 @@
 
 <div class="">
     <div align="middle">
-        <img ng-src="assets/logos/Logo_PR.png" class="logo-pr"/>
+        <a href="#!/"><img ng-src="assets/logos/Logo_PR.png" class="logo-pr"/></a>
     </div>
     <div class="input-group">
         <input type="text" class="form-control" placeholder="Recherche...">
@@ -31,7 +31,7 @@
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="">
-                Filtres avec logo - brevet
+                <filtre-logo texte="'Brevet uniquement'" logo="'assets/logos/Brevet_ok_blanc.png'"></filtre-logo>
             </label>
         </div>
     </div>
@@ -41,7 +41,7 @@
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="">
-                Filtres avec logo - achetable
+                <filtre-logo texte="'Fonds suffisants uniquement'" logo="'assets/logos/Brevet_ok_blanc.png'"></filtre-logo>
             </label>
         </div>
     </div>
@@ -50,12 +50,12 @@
 <hr>
 <div class="row tiny-padding-side">
     <div>
-        <strong>{{ $ctrl.user | fullname  }}</strong>
+        <strong>{{ $ctrl.user | fullname }}</strong>
     </div>
     <div>
-        Energiticiens filter logo
+        <logo-valeur texte="'Energéticiens'" logo="'assets/logos/Logo_energeticien.png'"></logo-valeur>
     </div>
     <div>
-        Energie filter energie
+        <logo-valeur texte="'375'" logo="'assets/logos/petite_pile.png'"></logo-valeur>
     </div>
 </div>

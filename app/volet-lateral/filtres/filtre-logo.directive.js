@@ -8,9 +8,10 @@ module('voletLateral').
 directive('filtreLogo', function() {
     return {
         restrict: 'E',
-        template: '<div style="display: inline-block">{{filtre.nom}}<div style="display: inline-block; position: absolute; right: 3px; top:25%; width: 12px; height: 12px; border-radius: 50%;"><img src="{{filtre.logo}}"></div></div>',
+        template: '<div style="display: inline-block">{{texte}}<div style="display: inline-block; position: absolute; right: 0px;"><img style="display: inline-block; position: absolute; right:0px; width: 20px; height: 20px;" ng-src="{{logo}}"></div></div>',
         scope: {
-            filtre: '=filtre'
+            texte: '=texte',
+            logo: '=logo'
         }
     };
 });

@@ -12,5 +12,7 @@ angular.module('poleRecherche', [
     'voletLateral',
     'modalTechnologie',
     'accueil',
-    'ngModal'
+    'ngModal',
+    'infrastructures',
+    'infoEleve'
 ]);

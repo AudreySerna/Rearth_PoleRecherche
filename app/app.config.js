@@ -9,17 +9,10 @@ config(['$locationProvider' ,'$routeProvider',
     function config($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
 
-        $routeProvider.
-        when('/discover', {
-            template: "<accueil-discover></accueil-discover>"
-        }).
-        when('/my-techs', {
-            template: "<accueil-owned></accueil-owned>"
-        }).
-        when('/technology/:id', {
-            template: "<accueil-discover></accueil-discover> <modal-technologie></modal-technologie>"
-        }).
-        otherwise('/discover');
+        $routeProvider.when('/technologie/:nom/:niveau', {
+            template: "<infrastructures></infrastructures>"
+        }).        
+        otherwise('/technologie/eolienne/1');
     }
 ])
     .config(function(ngModalDefaultsProvider) {
@@ -35,7 +28,11 @@ config(['$locationProvider' ,'$routeProvider',
     ).config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:8000';
-}])
+}]).config(function ($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self'   // trust all resources from the same origin
+    ]);
+});
 
 
 /*

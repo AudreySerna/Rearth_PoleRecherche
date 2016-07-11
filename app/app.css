@@ -4,9 +4,19 @@
     src: url("assets/nasalization/nasalization-rg.ttf");
 }
 
-/*body {
-    font-family: "Nasalization Rg";
-}*/
+body {
+    background-image: url("../assets/img/ciel.jpg");
+    height: 100vh;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.appli-content {
+    color: white;
+}
 
 /* Opening door for connexion */
 .slider {

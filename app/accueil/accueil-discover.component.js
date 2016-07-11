@@ -8,8 +8,12 @@ angular.
 module('accueil').
 component('accueilDiscover', {
     templateUrl: 'accueil/accueil.template.html',
+    bindings: {
+        test:'@'
+    },
     controller: function AccueilDiscoverController(TAB_NAME) {
     	var self = this;
+        console.log(this.test);
         this.tab = TAB_NAME.DISCOVER;
         this.tab_name = TAB_NAME; //injecting constant in view
         this.techs = [{ id : '3'},

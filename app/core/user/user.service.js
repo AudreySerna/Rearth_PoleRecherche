@@ -3,56 +3,142 @@
  */
 'use strict';
 
-angular.module('core.user').factory('User', ['$resource', '$http',
-    function ($resource, $http) {
-        var urlBase = 'http://localhost:3000/users';
-        var factory = {};
+angular.module('core.user').factory('UserFactory', ['$resource', '$localStorage', 'ContextFactory',
+    function ($resource, $localStorage, ContextFactory) {
 
-        return $resource('http://localhost:3000/users', {
-            get: {
-                method: 'GET',
-                url: 'http://localhost:3000/users/:id',
-                params: { 
-                            id : id
-                        },
-                headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
-            }
-        });
+        var UserFactory = {};
+        var client = new xmlrpc_client('http://jenlab.iut-laval.univ-lemans.fr/webservice/xmlrpc/server.php?wstoken=02d1d49d6dcd67321987e99eb619254e');
 
-        /*this.get = function(userId){
-            $http.get("http://localhost:3000/users/:id",
-                {
-                    id: userId
-                }).then( function successCallback(data) {
-                console.log('ok');
-            }, function errorCallback(data) {
-                console.log('ok');
-            } );
+
+        /**
+            Authentification
+            Retourne dans une string la réponse du serveur (true/false)
+        **/
+        UserFactory.connexion = function(matricule, mdp) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_mdp = new xmlrpcval(mdp);
+
+            var msg = new xmlrpcmsg('jnValidAuthentification', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_mdp);
+
+            var resp = client.send(msg);
+            //parsing xml response
+            return extractSingleValue(resp);
+        };
+
+        /**
+            Vérifie si le jeu a déjà été commencé
+        **/
+        UserFactory.hasStarted = function(matricule) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+
+            var msg = new xmlrpcmsg('jnIsGameStart', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_jeu);
+
+            var resp = client.send(msg);
+            //parsing xml response
+            return extractSingleValue(resp);
+        };
+
+        /**
+            Recuperation du profil eleve
+            Retourne dans une string la réponse du serveur
+        **/
+        UserFactory.loadEleve = function(matricule, mdp) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_mdp = new xmlrpcval(mdp);
+
+            var msg = new xmlrpcmsg('jnGetProfil', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_mdp);
+
+            var resp = client.send(msg);
+
+            //parsing xml response to json
+            var eleve = extractSingleValue(resp);
+            // charger parametres de session
+            $localStorage.utilisateur = this.toUser(eleve);
+            $localStorage.matricule = matricule;
+
+            return true;
         }
 
-        return this;*/
+        /**
+            Recuperation du solde eleve
+            Retourne dans une string la réponse du serveur
+        **/
+        UserFactory.getSolde = function(matricule) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            var param_note = new xmlrpcval(NOTE_ENERGIE);
+
+            var msg = new xmlrpcmsg('jnGetNote', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_jeu);
+            msg.addParam(param_note);
+
+            var resp = client.send(msg);
+            //parsing xml response to json
+            return extractSingleValue(resp);
+        }
+
+        UserFactory.setSolde = function(matricule, valeur) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            var param_note = new xmlrpcval(NOTE_ENERGIE);
+            var param_valeur = new xmlrpcval(valeur);
+
+            var msg = new xmlrpcmsg('jnSetNote', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_jeu);
+            msg.addParam(param_note);
+            msg.addParam(param_valeur);
+
+            var resp = client.send(msg);
+            //parsing xml response to json
+            return extractSingleValue(resp);
+        }
+
+        UserFactory.unlocked = function(matricule, techno) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            var param_who = new xmlrpcval("my");
+
+            var badgeDecouverte = ContextFactory.singleAttrGet("defi-technologique", "technologie", techno, "nomBadge");
+            var badgeLicence = ContextFactory.singleAttrGet("achat-licence", "technologie", techno, "nomBadge");
+
+            var param_badgeDecouverte = new xmlrpcval(badgeDecouverte);
+            var param_badgeLicence = new xmlrpcval(badgeLicence);
+
+            var msg = new xmlrpcmsg('jnGetBadge', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_jeu);
+            msg.addParam(param_note);
+            msg.addParam(param_valeur);
+
+            var resp = client.send(msg);
+            //parsing xml response to json
+            return extractSingleValue(resp);
+        }
+
+        /**
+            Transforme la string de reponse en un objet user
+        **/
+        UserFactory.toUser = function (eleve) {
+            var userArray = eleve.split(";");
+            var userFormatted = {};
+            userFormatted.nom = userArray[0];
+            userFormatted.prenom = userArray[1];
+            userFormatted.email = userArray[2];
+            userFormatted.ville = userArray[3];
+            userFormatted.pays = userArray[4];
+            userFormatted.avatar = userArray[5];
+            return userFormatted;
+        }
+
+        return UserFactory;
     }
 ]);
-
-// I transform the error response, unwrapping the application dta from
-// the API response payload.
-function handleError( response ) {
-    // The API response from the server should be returned in a
-    // nomralized format. However, if the request was not handled by the
-    // server (or what not handles properly - ex. server error), then we
-    // may have to normalize it on our end, as best we can.
-    if (
-        ! angular.isObject( response.data ) ||
-        ! response.data.message
-        ) {
-        return( $q.reject( "An unknown error occurred." ) );
-    }
-    // Otherwise, use expected error message.
-    return( $q.reject( response.data.message ) );
-}
-
-// I transform the successful response, unwrapping the application data
-// from the API response payload.
-function handleSuccess( response ) {
-    return( response.data );
-}

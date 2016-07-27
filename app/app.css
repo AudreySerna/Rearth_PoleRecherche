@@ -18,36 +18,6 @@ body {
     color: white;
 }
 
-/* Opening door for connexion */
-.slider {
-    overflow-y: hidden;
-    max-height: 100vh; /* approximate max height */
-
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.85);
-    text-align: center;
-
-    transition-property: all;
-    transition-duration: 1s;
-    transition-timing-function: cubic-bezier(0.42,0,0.58,1);
-}
-.slider.closed {
-    max-height: 0;
-}
-.big-logo-pr {
-    padding-top: 10%;
-}
-
-.btn-valider {
-    padding-top: 15px;
-}
-
-
 /* Everything else */
 .menu {
     list-style: none;
@@ -76,4 +46,21 @@ body {
 .menu > li:nth-child(1):before {
     content: "";
     padding: 0;
+}
+
+/*** Useful classes ***/
+.tiny-padding-top {
+    padding-top: 5px;
+}
+
+.tiny-margin-top {
+    margin-top: 5px;
+}
+
+.medium-margin-top {
+    margin-top: 25px;
+}
+
+.big-margin-top {
+    margin-top: 50px;
 }

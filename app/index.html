@@ -1,99 +1,71 @@
 <!doctype html>
-<html lang="en" ng-app="poleRecherche">
+<html lang="fr" ng-app="poleRecherche">
 <head>
     <meta charset="utf-8">
     <title>Bienvenue au Pôle Recherche</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <script src="https://use.fontawesome.com/59c390bf14.js"></script>
-    <link rel="stylesheet" href="app.css"/>
-    <script src="mimic/mimic.js"> </script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/ngModal/dist/ng-modal.js"></script>
-    <link rel="stylesheet" href="bower_components/ngModal/dist/ng-modal.css"/>
-    <script src="app.module.js"></script>
-    <script src="app.config.js"></script>
+    <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <script type="text/javascript" src="https://use.fontawesome.com/59c390bf14.js"></script>
+    <link type="text/css" rel="stylesheet" href="app.css"/>
+    <script type="text/javascript" src="jsonpath-0.8.0.js"> </script>
+    <script type="text/javascript" src="xmlrpc_lib.js"> </script>
+    <script type="text/javascript" src="xml2json.js"> </script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/ngstorage/ngStorage.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="bower_components/ngModal/dist/ng-modal.js"></script>
+    <link type="text/css" rel="stylesheet" href="bower_components/ngModal/dist/ng-modal.css"/>
 
-    <script src="infrastructures/infrastructures.module.js"></script>
-    <script src="infrastructures/infrastructures.component.js"></script>
-    <script src="infrastructures/info-infrastructure/info-infrastructure.module.js"></script>
-    <script src="infrastructures/info-infrastructure/info-infrastructure.component.js"></script>
-    <script src="infrastructures/info-technologie/info-technologie.module.js"></script>
-    <script src="infrastructures/info-technologie/info-technologie.component.js"></script>
-    <script src="infrastructures/info-technologie/cercles-niveau/cercles-niveau.module.js"></script>
-    <script src="infrastructures/info-technologie/cercles-niveau/cercles-niveau.component.js"></script>
+    <script type="text/javascript" src="app.module.js"></script>
+    <script type="text/javascript" src="app.config.js"></script>
 
-    <script src="info-eleve/info-eleve.module.js"></script>
-    <script src="info-eleve/info-eleve.component.js"></script>
+    <script type="text/javascript" src="infrastructures/infrastructures.module.js"></script>
+    <script type="text/javascript" src="infrastructures/infrastructures.component.js"></script>
 
-    <script src="accueil/accueil.module.js"></script>
-    <script src="accueil/accueil-owned.component.js"></script>
-    <script src="accueil/accueil-discover.component.js"></script>
-    <script src="accueil/technologie-bloc/technologie-bloc.module.js"></script>
-    <script src="accueil/technologie-bloc/technologie-bloc.component.js"></script>
-    <script src="accueil/technologie-rectangle/technologie-rectangle.module.js"></script>
-    <script src="accueil/technologie-rectangle/technologie-rectangle.component.js"></script>
+    <script type="text/javascript" src="infrastructures/info-infrastructure/info-infrastructure.module.js"></script>
+    <script type="text/javascript" src="infrastructures/info-infrastructure/info-infrastructure.component.js"></script>
 
-    <script src="core/core.module.js"></script>
-    <script src="core/guilde/guilde.module.js"></script>
-    <script src="core/guilde/guilde.service.js"></script>
-    <script src="core/user/user.module.js"></script>
-    <script src="core/user/user.service.js"></script>
-    <script src="core/filters/fullname.filter.js"></script>
-    <script src="core/directives/logo-valeur.directive.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/info-technologie.module.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/info-technologie.component.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/cercles-niveau/cercles-niveau.module.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/cercles-niveau/cercles-niveau.component.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/info-sans-brevet/info-sans-brevet.module.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/info-sans-brevet/info-sans-brevet.component.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/info-avec-brevet/info-avec-brevet.module.js"></script>
+    <script type="text/javascript" src="infrastructures/info-technologie/info-avec-brevet/info-avec-brevet.component.js"></script>
 
-    <script src="modal-technologie/modal-technologie.module.js"></script>
-    <script src="modal-technologie/modal-technologie.component.js"></script>
+    <script type="text/javascript" src="exercice/exercice.module.js"></script>
+    <script type="text/javascript" src="exercice/exercice.component.js"></script>
 
-    <script src="volet-lateral/volet-lateral.module.js"></script>
-    <script src="volet-lateral/volet-lateral.component.js"></script>
-    <script src="volet-lateral/filtres/filtre-guilde.directive.js"></script>
-    <script src="volet-lateral/filtres/filtre-logo.directive.js"></script>
+    <script type="text/javascript" src="info-eleve/info-eleve.module.js"></script>
+    <script type="text/javascript" src="info-eleve/info-eleve.component.js"></script>
+
+    <script type="text/javascript" src="volet-connexion/volet-connexion.module.js"></script>
+    <script type="text/javascript" src="volet-connexion/volet-connexion.component.js"></script>
+
+    <script type="text/javascript" src="core/core.module.js"></script>
+    <script type="text/javascript" src="core/requests-utils.js"></script>
+    <script type="text/javascript" src="core/context/context.module.js"></script>
+    <script type="text/javascript" src="core/context/context.service.js"></script>
+    <script type="text/javascript" src="core/guilde/guilde.module.js"></script>
+    <script type="text/javascript" src="core/guilde/guilde.service.js"></script>
+    <script type="text/javascript" src="core/user/user.module.js"></script>
+    <script type="text/javascript" src="core/user/user.service.js"></script>
+    <script type="text/javascript" src="core/filters/fullname.filter.js"></script>
+    <script type="text/javascript" src="core/filters/capitalize.filter.js"></script>
+    <script type="text/javascript" src="core/directives/logo-valeur.directive.js"></script>
 </head>
 <body>
 
-<div class="view-container container-fluid">
-    <div class="row">
-        <!-- Opening door for connexion -->
-        <div id="slider" class="slider container">
-            <div align="middle">
-                <img ng-src="assets/logos/Logo_PR.png" class="big-logo-pr"/>
-            </div>
-            <p>Bienvenue au Pôle Recherche. Merci de vous identifier.</p>
-            <div class="col-md-6 col-md-offset-3">
-                <form action="http://jenlab.iut-laval.univ-lemans.fr/webservice/xmlrpc/server.php?wstoken=02d1d49d6dcd67321987e99eb619254e" method="post" id="form" class="form-horizontal">
-                    <div class="form-group">
-                        <label for="username" class="col-xs-4 control-label">Matricule</label>
-                        <div class="col-xs-6">
-                            <input type="text" class="form-control" id="username" placeholder="Matricule">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="password" class="col-xs-4 control-label">Mot de passe</label>
-                        <div class="col-xs-6">
-                            <input type="password" class="form-control" id="password" placeholder="Mot de passe">
-                        </div>
-                        <div class="form-group">
-                            <div class="btn-valider col-xs-offset-4 col-xs-6">
-                                <button type="submit" class="btn btn-info" ng-click="$ctrl.login()">Valider</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <button onclick="document.getElementById('slider').classList.toggle('closed');">Toggle slider</button>
-        </div>
+    <div class="view-container container-fluid">
+        <div class="row">
 
-        <!--div class="col-xs-3">
-            <volet-lateral></volet-lateral>
-        </div-->
-        <div class="col-xs-12 appli-content">
-            <div ng-view class="view-frame"></div>
+            <!--volet-connexion></volet-connexion-->
+            <div class="col-xs-12 appli-content">
+                <div ng-view class="view-frame"></div>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

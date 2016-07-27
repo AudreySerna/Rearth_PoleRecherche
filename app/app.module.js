@@ -8,11 +8,14 @@ angular.module('poleRecherche', [
     //'ngAnimate',
     'ngRoute',
     'core',
+    'core.user',
+    'core.context',
     'ngResource',
-    'voletLateral',
-    'modalTechnologie',
-    'accueil',
     'ngModal',
     'infrastructures',
-    'infoEleve'
+    'infoEleve',
+    'exercice',
+    'voletConnexion',
+    'ngStorage'
+
 ]);

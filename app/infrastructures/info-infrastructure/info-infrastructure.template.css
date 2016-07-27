@@ -1,0 +1,23 @@
+.left-container {
+    position: relative;
+    height: 100vh;
+    padding-left: 30px;
+}
+
+.float-bottom {
+	position: absolute;
+    bottom: 10px;
+    left: 50%;
+}
+
+.tiny-margin-top {
+	margin-top: 10px;
+}
+
+.half-margin-left {
+	margin-left: 40%;
+}
+
+.img-infra {
+	max-height:200px;
+}

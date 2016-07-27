@@ -1,0 +1,16 @@
+<link type="text/css" rel="stylesheet" href="info-eleve/info-eleve.template.css"/>
+
+<div class="row info-eleve-all">
+<div class="row-height">
+
+	<div class="col-xs-9 info-eleve-left col-height col-middle">
+		{{ $ctrl.utilisateur | fullname }}
+	</div>
+	<div class="col-xs-2 info-eleve-left col-height col-middle" align="center">
+		<img class="mini-pic" ng-src="assets/logos/petite_pile.png"/> {{$ctrl.solde}}
+	</div>
+	<div class="col-xs-1 info-eleve-right col-height col-middle" align="center">
+		<i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+	</div>
+</div>
+</div>

@@ -1,0 +1,36 @@
+<link type="text/css" rel="stylesheet" href="infrastructures/info-infrastructure/info-infrastructure.template.css"/>
+
+<div class="row ">
+	<div class="col-xs-12 left-container">
+		<div class="row">
+			<div class="col-xs-12 tiny-margin-top half-margin-left">
+				<i class="fa fa-2x fa-chevron-up" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>{{$ctrl.infrastructure.nom | capitalize}}</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<img class="img-circle img-responsive img-infra" ng-src="assets/img/panneau_solaire.jpg">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Description</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<p>{{$ctrl.infrastructure.description}}</p>
+			</div>
+		</div>
+		<div class="row float-bottom">
+			<div class="col-xs-12" align="center">
+				<i class="fa fa-2x fa-chevron-down" aria-hidden="true"></i>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,56 @@
+{
+	"defi-technologique": [
+		{
+			"technologie": 2,
+			"html": "linkToHTML",
+			"nomBadge" : "technologue"
+		},
+		{
+			"technologie": 3,
+			"html": "linkToHTML",
+			"nomBadge" : "technologue"
+		},
+		{
+			"technologie": 5,
+			"html": "linkToHTML",
+			"nomBadge" : "energeticien"
+		},
+		{
+			"technologie": 7,
+			"html": "linkToHTML",
+			"nomBadge" : "batisseur"
+		},
+		{
+			"technologie": 8,
+			"html": "linkToHTML",
+			"nomBadge" : "batisseur"
+		}
+	],
+	"achat-licence": [
+		{
+			"technologie": 2,
+			"html": "linkToHTML",
+			"nomBadge" : "technologue"
+		},
+		{
+			"technologie": 3,
+			"html": "linkToHTML",
+			"nomBadge" : "technologue"
+		},
+		{
+			"technologie": 5,
+			"html": "linkToHTML",
+			"nomBadge" : "energeticien"
+		},
+		{
+			"technologie": 7,
+			"html": "linkToHTML",
+			"nomBadge" : "batisseur"
+		},
+		{
+			"technologie": 8,
+			"html": "linkToHTML",
+			"nomBadge" : "batisseur"
+		}
+	]
+}

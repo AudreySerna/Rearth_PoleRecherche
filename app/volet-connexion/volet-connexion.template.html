@@ -1,0 +1,30 @@
+<link type="text/css" rel="stylesheet" href="volet-connexion/volet-connexion.template.css"/>
+
+<!-- Opening door for connexion -->
+<div id="slider" class="slider container">
+    <div align="middle">
+        <img ng-src="assets/logos/Logo_PR.png" class="big-logo-pr img-responsive"/>
+    </div>
+    <p>Bienvenue au Pôle Recherche. Merci de vous identifier.</p>
+    <span class="label label-danger" data-ng-show="$ctrl.submitted && $ctrl.error">Votre matricule ou mot de passe est incorrect</span>
+        <form id="form" name="connexionForm" class="form-horizontal" novalidate>
+            <div class="form-group">
+                <label for="username" class="col-xs-4 control-label">Matricule</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" data-ng-model="$ctrl.matricule" id="matricule" placeholder="Matricule" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="col-xs-4 control-label">Mot de passe</label>
+                <div class="col-xs-6">
+                    <input type="password" class="form-control" data-ng-model="$ctrl.mdp" id="password" placeholder="Mot de passe" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn-valider col-xs-offset-3 col-xs-6">
+                    <button class="btn btn-info" ng-click="$ctrl.login(connexionForm)">Valider</button>
+                </div>
+            </div>
+        </form>
+</div>

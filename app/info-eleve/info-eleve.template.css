@@ -1,0 +1,42 @@
+.tiny-padding-left {
+    padding-left: 8px
+}
+
+.tiny-padding-side {
+    padding-left: 8px;
+    padding-right: 8px
+}
+
+.info-eleve-all{
+}
+
+.info-eleve-left{
+	border-style:solid;
+	border-color: grey;
+	border-width: 0px 0px 1px 1px;
+	background-color: rgba(65, 65, 65, 1);
+}
+
+.info-eleve-right{
+	padding:0;
+	border-style:solid;
+	border-color: grey;
+	border-width: 0px 1px 1px 1px;
+	background-color: rgba(65, 65, 65, 0.5);
+}
+
+.row-height {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+}
+.col-height {
+  display: table-cell;
+  float: none;
+  height: 45px;
+}
+
+.col-middle {
+  vertical-align: middle;
+}

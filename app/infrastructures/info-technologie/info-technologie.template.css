@@ -1,0 +1,41 @@
+.technologie-cout td {
+	border-top: none !important;
+}
+
+.short-table {
+}
+
+.short-table > tbody > tr > td {
+ 	vertical-align: middle;
+ 	padding: 2px;
+}
+
+.progress {
+	margin-bottom: 7px;
+}
+
+.miniature-progress-bar {
+	position:relative; 
+	max-width:18px; 
+	max-height:18px; 
+	vertical-align: middle; 
+	float:left;
+	margin-right: 5px;
+}
+
+.mini-pic {
+	max-width:18px; 
+	max-height:18px; 
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.btn-large {
+	width:150px;
+}
+
+.tech-modal-content {
+	color: black;
+	padding-left: 15px;
+}
+

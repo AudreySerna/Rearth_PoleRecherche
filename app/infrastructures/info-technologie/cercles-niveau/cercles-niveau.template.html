@@ -1,0 +1,33 @@
+<link type="text/css" rel="stylesheet" href="infrastructures/info-technologie/cercles-niveau/cercles-niveau.template.css"/>
+
+<div class="row">
+	<div class="col-xs-12 middle-container">
+		<svg width="500" height="92" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg">
+		<!--a xlink:href="#!/technologie/{{$ctrl.nom}}/{{niveau.numero}}" -->
+			 <g ng-repeat="niveau in $ctrl.niveaux">
+			 
+			 	<!-- Génération des petits cercles -->
+				<ellipse ng-if="!niveau.decouvert" ry="35" rx="35" ng-attr-cy="{{$ctrl.y}}" ng-attr-cx="{{$ctrl.x + 120*$index}}" stroke="#ffffff" stroke-dasharray="10,10" fill="none"/>
+  				<ellipse ng-if="niveau.decouvert" ry="35" rx="35" ng-attr-cy="{{$ctrl.y}}" ng-attr-cx="{{$ctrl.x + 120*$index}}" stroke="#ffffff" fill="none"/>
+  				
+  				<!-- Génération du grand cercle autour si niveau courant -->
+			  	<ellipse ng-if="niveau.numero==$ctrl.niveau && !niveau.decouvert" ry="45" rx="45" id="circle-nv1" ng-attr-cy="{{$ctrl.y}}" ng-attr-cx="{{$ctrl.x + 120*$index}}" stroke="#ffffff"  stroke-dasharray="10,10" fill="none"/>
+			  	<ellipse ng-if="niveau.numero==$ctrl.niveau && niveau.decouvert" ry="45" rx="45" id="circle-nv1" ng-attr-cy="{{$ctrl.y}}" ng-attr-cx="{{$ctrl.x + 120*$index}}" stroke="#ffffff"  fill="none"/>
+			  	
+			  	<!-- Génération du petit cercle colore si niveau courant -->
+			  	<ellipse ng-if="niveau.numero==$ctrl.niveau" ry="35" rx="35" id="circle-nv1" ng-attr-cy="{{$ctrl.y}}" ng-attr-cx="{{$ctrl.x + 120*$index}}" stroke="#ffce35" stroke-width="2" fill="#ffce35" fill-opacity="0.5"/>
+			  	
+			  	<!-- Génération du numero de niveau -->
+			  	<a xlink:href="{{$ctrl.levelUrlTrusted[$index]}}">
+			  		<text xml:space="preserve" text-anchor="middle" fill="#ffffff" font-size="28" ng-attr-x="{{$ctrl.x + 120*$index}}" ng-attr-y="{{$ctrl.y+10}}">{{$index + 1}}</text>
+			  	</a>
+			  	
+			  	<!-- Génération du connecteur -->
+			  	<line ng-if="!$last && !niveau.decouvert" stroke-dasharray="10,10" stroke="#ffffff" fill="none" ng-attr-x1="{{$ctrl.x + 35 + 120*$index}}" ng-attr-x2="{{$ctrl.x + 85 + 120*$index}}" ng-attr-y2="{{$ctrl.y}}" ng-attr-y1="{{$ctrl.y}}"></line>
+			  	<line ng-if="!$last && niveau.decouvert" stroke="#ffffff" fill="none" ng-attr-x1="{{$ctrl.x + 35 + 120*$index}}" ng-attr-x2="{{$ctrl.x + 85 + 120*$index}}" ng-attr-y2="{{$ctrl.y}}" ng-attr-y1="{{$ctrl.y}}"></line>
+			
+			 </g>
+			  <!--/a-->
+		</svg>	
+	</div>
+</div>

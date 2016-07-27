@@ -1,0 +1,44 @@
+<link type="text/css" rel="stylesheet" href="infrastructures/info-technologie/info-technologie.template.css"/>
+
+<div class="row">
+	<div class="col-xs-12 middle-container">
+		<info-eleve></info-eleve>
+		<cercles-niveau></cercles-niveau>
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>Niveau {{$ctrl.niveau}}</h2>
+			</div>
+		</div>
+		<div class="row technologie-cout">
+			<div class="col-xs-12">
+				<table class="table short-table">
+					<tr>
+						<td class="col-xs-1">
+        					Coût de pose
+						</td>
+						<td class="col-xs-1">
+        					<img class="mini-pic" ng-src="assets/logos/petite_pile.png"/> +50
+						</td>
+						<td class="col-xs-1">
+							<img class="mini-pic" ng-src="assets/logos/gens_icon.png"/> -20
+						</td>
+					</tr>
+					<tr>
+						<td class="col-xs-1">
+        					Gains/tour
+						</td>
+						<td class="col-xs-1">
+        					<img class="mini-pic" ng-src="assets/logos/petite_pile.png"/> +50
+						</td>
+						<td class="col-xs-1">
+							<img class="mini-pic" ng-src="assets/logos/gens_icon.png"/> -20
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<info-sans-brevet></info-sans-brevet>
+
+	</div>
+</div>

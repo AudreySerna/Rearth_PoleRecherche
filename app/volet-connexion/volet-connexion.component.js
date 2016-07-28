@@ -22,6 +22,11 @@ component('voletConnexion', {
         ContextFactory.setGlobalContext();
 
         this.login = function(form) {
+
+
+			ContextFactory.setGlobalContext(); // TODO remove this line
+        	
+
         	self.submitted = true;
         	// If form is invalid, return and let AngularJS show validation errors.
 			if (form.$invalid) {
@@ -39,17 +44,24 @@ component('voletConnexion', {
 
 				// Initialization if the game hasn't started yet
 				if(UserFactory.hasStarted(this.matricule) === 'false') {
-					ContextFactory.setUserContext();
+					ContextFactory.setUserContext(this.matricule);
+					UserFactory.initBadges(this.matricule);
 				} else {
-					ContextFactory.setUserContext(); // TODO remove this line
-					ContextFactory.loadUserContext();
+					ContextFactory.loadUserContext(this.matricule);
 				}
 				// Anyway, load context
 				ContextFactory.loadGlobalContext();
 
+				// test area
+				ContextFactory.setUserContext(); // TODO remove this line
+
+				console.log("------test award--------");
+				console.log(UserFactory.awardDecouverte(this.matricule, "panneau-solaire", 2));
+				console.log("--------------");
+
 				$rootScope.$broadcast('refreshInfos');
 				document.getElementById('slider').classList.toggle('closed');
-				$location.path('/technologie/eolienne/2');
+				$location.path('/technologie/panneau-solaire/2');
 			}
         }
     }]

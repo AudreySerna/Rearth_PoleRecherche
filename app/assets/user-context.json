@@ -3,54 +3,59 @@
 		{
 			"technologie": 2,
 			"html": "linkToHTML",
-			"nomBadge" : "technologue"
+			"nomBadge" : "technologue_2_decouverte",
+			"nomBrevet" : "technologue 2"
 		},
 		{
 			"technologie": 3,
 			"html": "linkToHTML",
-			"nomBadge" : "technologue"
+			"nomBadge" : "technologue_3_decouverte",
+			"nomBrevet" : "technologue 3"
 		},
 		{
 			"technologie": 5,
 			"html": "linkToHTML",
-			"nomBadge" : "energeticien"
+			"nomBadge" : "energeticien_2_decouverte",
+			"nomBrevet" : "energeticien 2"
 		},
 		{
 			"technologie": 7,
 			"html": "linkToHTML",
-			"nomBadge" : "batisseur"
+			"nomBadge" : "batisseur_2_decouverte",
+			"nomBrevet" : "batisseur 2"
 		},
 		{
 			"technologie": 8,
 			"html": "linkToHTML",
-			"nomBadge" : "batisseur"
+			"nomBadge" : "batisseur_3_decouverte",
+			"nomBrevet" : "batisseur 3"
 		}
 	],
 	"achat-licence": [
 		{
 			"technologie": 2,
 			"html": "linkToHTML",
-			"nomBadge" : "technologue"
+			"nomBadge" : "technologue_2_achat"
 		},
 		{
 			"technologie": 3,
 			"html": "linkToHTML",
-			"nomBadge" : "technologue"
+			"nomBadge" : "technologue_3_achat"
 		},
 		{
 			"technologie": 5,
 			"html": "linkToHTML",
-			"nomBadge" : "energeticien"
+			"nomBadge" : "energeticien_2_achat"
 		},
 		{
 			"technologie": 7,
 			"html": "linkToHTML",
-			"nomBadge" : "batisseur"
+			"nomBadge" : "batisseur_2_achat"
 		},
 		{
 			"technologie": 8,
 			"html": "linkToHTML",
-			"nomBadge" : "batisseur"
+			"nomBadge" : "batisseur_3_achat"
 		}
 	]
 }

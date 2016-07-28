@@ -102,26 +102,106 @@ angular.module('core.user').factory('UserFactory', ['$resource', '$localStorage'
             return extractSingleValue(resp);
         }
 
-        UserFactory.unlocked = function(matricule, techno) {
+        /**
+            Evalue si la technologie a été débloquée
+            Retourne "defi-technologique", "achat-licence" ou false si non obtenue
+        **/
+        UserFactory.unlocked = function(matricule, infra, niveau) {
+            if(niveau == 1) {
+                return true;
+            } else {
+                var param_matricule = new xmlrpcval(matricule);
+                var param_jeu = new xmlrpcval(GAME_NAME);
+                var param_who = new xmlrpcval("my");
+
+                var badgeDecouverte = ContextFactory.getNomBadge(DEFI_TECHNOLOGIQUE, infra, niveau);
+
+                var param_badgeDecouverte = new xmlrpcval(badgeDecouverte);
+
+                var msg = new xmlrpcmsg('jnGetBadge', []);
+                msg.addParam(param_matricule);
+                msg.addParam(param_jeu);
+                msg.addParam(param_badgeDecouverte);
+                msg.addParam(param_who);
+                var resp = client.send(msg);
+                //parsing xml response to json
+                var respDecouverte = extractSingleValue(resp);
+
+                if(respDecouverte === "true") {
+                    return DEFI_TECHNOLOGIQUE;
+                } else {
+                    var badgeLicence = ContextFactory.getNomBadge(ACHAT_LICENCE, infra, niveau);
+
+                    var param_badgeLicence = new xmlrpcval(badgeLicence);
+
+                    msg = new xmlrpcmsg('jnGetBadge', []);
+                    msg.addParam(param_matricule);
+                    msg.addParam(param_jeu);
+                    msg.addParam(param_badgeLicence);
+                    msg.addParam(param_who);
+                    resp = client.send(msg);
+                    //parsing xml response to json
+                    var respLicence = extractSingleValue(resp);
+
+                    if(respLicence === "true") {
+                        return ACHAT_LICENCE;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        /**
+            Accorde tous les badges de découverte de niveau pour toutes les infrastructures
+        **/
+        UserFactory.initBadges = function(matricule) {
             var param_matricule = new xmlrpcval(matricule);
             var param_jeu = new xmlrpcval(GAME_NAME);
-            var param_who = new xmlrpcval("my");
+            
+            var msg;
+            var param_badge;
 
-            var badgeDecouverte = ContextFactory.singleAttrGet("defi-technologique", "technologie", techno, "nomBadge");
-            var badgeLicence = ContextFactory.singleAttrGet("achat-licence", "technologie", techno, "nomBadge");
+            var badges = ['batisseur_1_decouverte', 'cyberneticien_1_decouverte', 'energeticien_1_decouverte', 'technologue_1_decouverte'];
 
-            var param_badgeDecouverte = new xmlrpcval(badgeDecouverte);
-            var param_badgeLicence = new xmlrpcval(badgeLicence);
+            for (var i = 0; i < badges.length; i++) {
+                msg = new xmlrpcmsg('jnAwardBadge', []);
+                param_badge = new xmlrpcval(badges[i]);
+                msg.addParam(param_matricule);
+                msg.addParam(param_jeu);
+                msg.addParam(param_badge);
+                client.send(msg);
+            }
+        }
 
-            var msg = new xmlrpcmsg('jnGetBadge', []);
+        UserFactory.award = function(badge, matricule) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            var param_badge = new xmlrpcval(badge);
+
+            var msg = new xmlrpcmsg('jnAwardBadge', []);
             msg.addParam(param_matricule);
             msg.addParam(param_jeu);
-            msg.addParam(param_note);
-            msg.addParam(param_valeur);
+            msg.addParam(param_badge);
 
             var resp = client.send(msg);
             //parsing xml response to json
             return extractSingleValue(resp);
+        }
+
+        UserFactory.awardDecouverte = function(matricule, infra, niveau) {
+            var badge = ContextFactory.getNomBadge(DEFI_TECHNOLOGIQUE, infra, niveau);
+            return this.award(badge, matricule);
+        }
+
+        UserFactory.awardBrevet = function(matricule, infra, niveau) {
+            var badge = ContextFactory.getNomBadge(BREVET, infra, niveau);
+            return this.award(badge, matricule);
+        }
+
+        UserFactory.awardLicence = function(matricule, infra, niveau) {
+            var badge = ContextFactory.getNomBadge(ACHAT_LICENCE, infra, niveau);
+            return this.award(badge, matricule);
         }
 
         /**

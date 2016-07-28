@@ -8,8 +8,8 @@ angular.
 module('cerclesNiveau').
 component('cerclesNiveau', {
     templateUrl: 'infrastructures/info-technologie/cercles-niveau/cercles-niveau.template.html',
-    controller: ['$http', '$sce', '$routeParams', 'ContextFactory', '$localStorage', 
-    function infoTechnologieController($http, $sce, $routeParams, ContextFactory, $localStorage) {
+    controller: ['$http', '$sce', '$routeParams', 'ContextFactory', 'UserFactory', '$localStorage', 
+    function infoTechnologieController($http, $sce, $routeParams, ContextFactory, UserFactory, $localStorage) {
         var self = this;
         
         // Retrieve data called with component
@@ -19,22 +19,14 @@ component('cerclesNiveau', {
         this.levelUrlTrusted = [];
 
         console.log("----- Niveaux -----");
-        console.log(ContextFactory.getNiveaux(this.nom));
+        this.niveaux = ContextFactory.getNiveaux(this.nom);
+        for (i = 0; i < this.niveaux.length; i++) {
+            this.niveaux[i].unlocked = UserFactory.unlocked($localStorage.matricule, this.nom, this.niveaux[i].niveau);
+        }
+        console.log(this.niveaux);
         console.log("-------------------");
 
-        this.niveaux = [
-    	{
-        	numero :1,
-        	decouvert : true
-        },
-        {
-        	numero :2,
-        	decouvert : true
-        },
-        {
-        	numero :3,
-        	decouvert : false
-        }]
+
         // Centre du premier cercle, utilise pour les calculs de positions de toutes les autres formes
         this.x = 46;
         this.y = 46;

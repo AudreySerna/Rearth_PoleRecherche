@@ -16,6 +16,6 @@ component('infoInfrastructure', {
         this.nom = $routeParams.nom;
         this.niveau = $routeParams.niveau;
 
-        this.infrastructure = ContextFactory.singleGet("infrastructure", "urlId", this.nom);
+        this.infrastructure = ContextFactory.getInfrastructure(this.nom);
     }]
 });

@@ -3,4 +3,4 @@
  */
 'use strict';
 
-angular.module('infoAvecBrevet', []);
+angular.module('infoGenerique', []);

@@ -3,4 +3,4 @@
  */
 'use strict';
 
-angular.module('infoTechnologie', ['cerclesNiveau', 'infoSansBrevet', 'infoAvecBrevet']);
+angular.module('infoTechnologie', ['cerclesNiveau', 'infoSansBrevet', 'infoGenerique']);

@@ -18,13 +18,10 @@ component('cerclesNiveau', {
         this.levelUrl = [];
         this.levelUrlTrusted = [];
 
-        console.log("----- Niveaux -----");
         this.niveaux = ContextFactory.getNiveaux(this.nom);
         for (i = 0; i < this.niveaux.length; i++) {
-            this.niveaux[i].unlocked = UserFactory.unlocked($localStorage.matricule, this.nom, this.niveaux[i].niveau);
+            this.niveaux[i].unlocked = ContextFactory.unlocked($localStorage.matricule, this.nom, this.niveaux[i].niveau);
         }
-        console.log(this.niveaux);
-        console.log("-------------------");
 
 
         // Centre du premier cercle, utilise pour les calculs de positions de toutes les autres formes
@@ -35,7 +32,7 @@ component('cerclesNiveau', {
         var i;
         var tmpUrl;
         for (i = 0; i < this.niveaux.length; i++) {
-            this.levelUrl[i] = $sce.trustAsUrl('http://localhost:8000/#!/technologie/'+ this.nom +'/' + (i+1));
+            this.levelUrl[i] = $sce.trustAsUrl('#!/technologie/'+ this.nom +'/' + (i+1));
             this.levelUrlTrusted[i] = $sce.getTrustedUrl(this.levelUrl[i]);
         }
     }]

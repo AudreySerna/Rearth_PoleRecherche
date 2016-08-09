@@ -16,29 +16,25 @@
 						<td class="col-xs-1">
         					Coût de pose
 						</td>
-						<td class="col-xs-1">
-        					<img class="mini-pic" ng-src="assets/logos/petite_pile.png"/> +50
-						</td>
-						<td class="col-xs-1">
-							<img class="mini-pic" ng-src="assets/logos/gens_icon.png"/> -20
+						<td ng-repeat="cout in $ctrl.coutsPose" class="col-xs-1">
+        					<img class="mini-pic" ng-src="{{cout.icone}}"/> {{cout.valeur | numberize}}
 						</td>
 					</tr>
 					<tr>
 						<td class="col-xs-1">
         					Gains/tour
 						</td>
-						<td class="col-xs-1">
-        					<img class="mini-pic" ng-src="assets/logos/petite_pile.png"/> +50
+						<td ng-repeat="gain in $ctrl.gains" class="col-xs-1">
+        					<img class="mini-pic" ng-src="{{gain.icone}}"/> {{gain.valeur | numberize}}
 						</td>
-						<td class="col-xs-1">
-							<img class="mini-pic" ng-src="assets/logos/gens_icon.png"/> -20
-						</td>
+
 					</tr>
 				</table>
 			</div>
 		</div>
 
-		<info-sans-brevet></info-sans-brevet>
+		<info-generique ng-if="$ctrl.templateTechno === 'generique'" guilde="$ctrl.guilde" a-obtenir="$ctrl.aObtenir" annuite="$ctrl.annuite"></info-generique>
+		<info-sans-brevet ng-if="$ctrl.templateTechno === 'sansBrevet'"></info-sans-brevet>
 
 	</div>
 </div>

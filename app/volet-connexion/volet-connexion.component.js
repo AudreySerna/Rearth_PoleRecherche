@@ -12,6 +12,7 @@ component('voletConnexion', {
 		$localStorage.$reset();
 		$localStorage.utilisateur = {};
 		$localStorage.context = {};
+		$localStorage.guilde = {};
 
         this.matricule = '';
         this.mdp = '';
@@ -41,6 +42,7 @@ component('voletConnexion', {
 			} else {
 				// if authenticated, save user profile
 				UserFactory.loadEleve(this.matricule, this.mdp);
+				$localStorage.guilde = UserFactory.getGuilde(this.matricule);
 
 				// Initialization if the game hasn't started yet
 				if(UserFactory.hasStarted(this.matricule) === 'false') {
@@ -54,10 +56,6 @@ component('voletConnexion', {
 
 				// test area
 				ContextFactory.setUserContext(); // TODO remove this line
-
-				console.log("------test award--------");
-				console.log(UserFactory.awardDecouverte(this.matricule, "panneau-solaire", 2));
-				console.log("--------------");
 
 				$rootScope.$broadcast('refreshInfos');
 				document.getElementById('slider').classList.toggle('closed');

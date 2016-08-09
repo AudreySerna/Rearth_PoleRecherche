@@ -2,9 +2,9 @@
 
 <div class="row ">
 	<div class="col-xs-12 left-container">
-		<div class="row">
-			<div class="col-xs-12 tiny-margin-top half-margin-left">
-				<i class="fa fa-2x fa-chevron-up" aria-hidden="true"></i>
+		<div class="row nav-arrow">
+			<div ng-if="$ctrl.precedent" class="col-xs-12 tiny-margin-top half-margin-left">
+				<a ng-href="#!/technologie/{{$ctrl.precedent.urlId}}/1"><i class="fa fa-2x fa-chevron-up" aria-hidden="true"></i></a>
 			</div>
 		</div>
 		<div class="row">
@@ -14,7 +14,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<img class="img-circle img-responsive img-infra" ng-src="assets/img/panneau_solaire.jpg">
+				<img alt="logo-pile" class="img-circle img-responsive img-infra" ng-src="assets/img/panneau_solaire.jpg">
 			</div>
 		</div>
 		<div class="row">
@@ -28,8 +28,8 @@
 			</div>
 		</div>
 		<div class="row float-bottom">
-			<div class="col-xs-12" align="center">
-				<i class="fa fa-2x fa-chevron-down" aria-hidden="true"></i>
+			<div ng-if="$ctrl.suivant" class="col-xs-12" align="center">
+				<a ng-href="#!/technologie/{{$ctrl.suivant.urlId}}/1"><i class="fa fa-2x fa-chevron-down" aria-hidden="true"></i></a>
 			</div>
 		</div>
 	</div>

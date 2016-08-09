@@ -3,8 +3,8 @@
  */
 'use strict';
 
-angular.module('core.context').factory('ContextFactory', ['$resource', '$http', '$localStorage',
-    function ($resource, $http, $localStorage) {
+angular.module('core.context').factory('ContextFactory', ['$resource', '$http', '$localStorage', 'UserFactory',
+    function ($resource, $http, $localStorage, UserFactory) {
 
         var ContextFactory = {};
         var self = this;
@@ -112,8 +112,93 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             return true;
         }
 
+        
+        /**
+            Evalue si la technologie a été débloquée
+            Retourne "defi-technologique", "achat-licence" ou false si non obtenue
+        **/
+        ContextFactory.unlocked = function(matricule, infra, niveau) {
+            if(niveau == 1) {
+                return DEFI_TECHNOLOGIQUE;
+            } else {
+                var badgeDecouverte = this.getNomBadge(DEFI_TECHNOLOGIQUE, infra, niveau);
+                var respDecouverte = this.hasBadge(matricule, badgeDecouverte);
 
-        ContextFactory.getBrevet = function(infra, niveau) {
+                if(respDecouverte === "true") {
+                    return DEFI_TECHNOLOGIQUE;
+                } else {
+                    var badgeLicence = this.getNomBadge(ACHAT_LICENCE, infra, niveau);
+                    var respLicence = this.hasBadge(matricule, badgeLicence);
+
+                    if(respLicence === "true") {
+                        return ACHAT_LICENCE;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        
+        /**
+            Accorde tous les badges de découverte de niveau pour toutes les infrastructures
+        **/
+        ContextFactory.initBadges = function(matricule) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            
+            var msg;
+            var param_badge;
+
+            var badges = ['batisseur_1_decouverte', 'cyberneticien_1_decouverte', 'energeticien_1_decouverte', 'technologue_1_decouverte'];
+
+            for (var i = 0; i < badges.length; i++) {
+                msg = new xmlrpcmsg('jnAwardBadge', []);
+                param_badge = new xmlrpcval(badges[i]);
+                msg.addParam(param_matricule);
+                msg.addParam(param_jeu);
+                msg.addParam(param_badge);
+                client.send(msg);
+            }
+        }
+
+        /**
+            Decerne un badge
+        **/
+        ContextFactory.award = function(badge, matricule) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            var param_badge = new xmlrpcval(badge);
+
+            var msg = new xmlrpcmsg('jnAwardBadge', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_jeu);
+            msg.addParam(param_badge);
+
+            var resp = client.send(msg);
+            //parsing xml response to json
+            return extractSingleValue(resp);
+        }
+
+        ContextFactory.awardDecouverte = function(matricule, infra, niveau) {
+            var badge = this.getNomBadge(DEFI_TECHNOLOGIQUE, infra, niveau);
+            return this.award(badge, matricule);
+        }
+
+        ContextFactory.awardBrevet = function(matricule, infra, niveau) {
+            var badge = this.getNomBadge(BREVET, infra, niveau);
+            return this.award(badge, matricule);
+        }
+
+        ContextFactory.awardLicence = function(matricule, infra, niveau) {
+            var badge = this.getNomBadge(ACHAT_LICENCE, infra, niveau);
+            return this.award(badge, matricule);
+        }
+
+        /**
+            Retourne le nom de la guilde détenant le brevet, ou false si non
+        **/
+        ContextFactory.getGuildeBrevet = function(infra, niveau) {
             var param_matricule = new xmlrpcval(ELEVE_CONTEXT);
             var param_jeu = new xmlrpcval(GAME_NAME);
             var param_who = new xmlrpcval("all");
@@ -131,9 +216,105 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             //parsing xml response to json
             var eleves = extractSingleValue(resp);
             var elevesArray = eleves.split(";");
-            return elevesArray;
+            elevesArray.pop();
+
+            // si le brevet a été déposé
+            if(elevesArray.length > 0) {
+                // on récupere la guilde d'un des joueurs puisqu'ils doivent tous etre de la meme guilde
+                var respArray = UserFactory.getGuilde(elevesArray[0]);
+                return respArray;
+            }
+            return false;
         }
 
+        /**
+            Vérifie si le badge est possédé ou non
+        **/
+        ContextFactory.hasBadge = function(matricule, badge) {
+            var param_matricule = new xmlrpcval(matricule);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            var param_who = new xmlrpcval("my");
+
+            var param_badge = new xmlrpcval(badge);
+
+            var msg = new xmlrpcmsg('jnGetBadge', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_jeu);
+            msg.addParam(param_badge);
+            msg.addParam(param_who);
+            var resp = client.send(msg);
+            //parsing xml response to json
+            return extractSingleValue(resp);
+        }
+
+        ContextFactory.hasBrevet = function(matricule, infra, niveau) {
+            var badge = this.getNomBadge(BREVET, infra, niveau);
+            return this.hasBadge(matricule, badge);
+        }
+
+        /**
+            Retourne un objet contenant les informations sur un cout
+        **/
+        ContextFactory.getFormattedCouts = function(infra, niveau, nomType) {
+            var couts = this.getCouts(infra, niveau, nomType);
+            var ressource;
+            for(var i=0; i < couts.length; i++) {
+                couts[i].icone = this.getRessource(couts[i].ressource).icone;
+            }
+            return couts;
+        }
+
+        /**
+            Retourne le nombre de personnes ayant découvert la technologie par guilde
+            Repose sur la variable GUILDES de requests-utils.js, à modifier une fois le service de récupération des guildes
+        **/
+        ContextFactory.getAvancementDecouverte = function(infra, niveau) {
+            var badge = this.getNomBadge(DEFI_TECHNOLOGIQUE, infra, niveau);
+
+            var tou = this.hasBadge("152d", badge);
+
+            var param_matricule = new xmlrpcval(ELEVE_CONTEXT);
+            var param_jeu = new xmlrpcval(GAME_NAME);
+            var param_who = new xmlrpcval("all");
+
+            var param_badge = new xmlrpcval(badge);
+
+            var msg = new xmlrpcmsg('jnGetBadge', []);
+            msg.addParam(param_matricule);
+            msg.addParam(param_jeu);
+            msg.addParam(param_badge);
+            msg.addParam(param_who);
+            var resp = client.send(msg);
+            //parsing xml response to json
+            var eleves = extractSingleValue(resp);
+
+            var elevesArray = eleves.split(";");
+            elevesArray.pop();
+            var respArray = {};
+            var guildeTmp;
+
+            for(var i=0; i<GUILDES_ARRAY.length; i++) {
+                respArray[GUILDES_ARRAY[i]] = {"count":0};
+            }
+
+            if(elevesArray.length > 0) {
+                // si il y a eu des découvertes
+                for(var i = 0; i<elevesArray.length; i++) {
+                    // on récupere la guilde d'un des joueurs puisqu'ils doivent tous etre de la meme guilde
+                    guildeTmp = UserFactory.getGuilde(elevesArray[i]);
+                    if(typeof respArray[guildeTmp.nom] == 'undefined') {
+                        respArray[guildeTmp.nom] = {
+                            "logo": guildeTmp.logo,
+                            "count": 1
+                        }; // 1 eleve comptabilisé
+                    } else {
+                        respArray[guildeTmp.nom].count += 1;
+                    }
+                }
+            }
+            console.log(respArray);
+            return respArray;
+        }
 
 
         /** 
@@ -159,13 +340,32 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             return this.singleGet("technologie", "infrastructure", id);
         }
 
-        ContextFactory.getCout = function(techId, type) {
-            var typeId = this.singleGet("typeCout", "nom", type)[0];
-            return this.doubleGet("cout", "technologie", techId, "type", typeId)[0];
+        ContextFactory.getRessource = function(ressource) {
+            return this.singleGet("ressource", "id", ressource)[0];
+        }
+
+        ContextFactory.getCouts = function(infra, niveau, type) {
+            var techno = this.getTechnologie(infra, niveau);
+            var typeObj = this.getTypeCout(type);
+            return this.doubleGet("cout", "techno", techno.id, "type", typeObj.id);
+        }
+        
+        ContextFactory.getTypeCout = function(type) {
+            return this.singleGet("typeCout", "nom", type)[0];
         }
 
         ContextFactory.getInfrastructure = function(infra) {
             return this.singleGet("infrastructure", "urlId", infra)[0];
+        }
+
+        ContextFactory.getPreviousInfrastructure = function(infraObj) {
+            var id = infraObj.id - 1;
+            return this.singleGet("infrastructure", "id", id)[0];
+        }
+
+        ContextFactory.getNextInfrastructure = function(infraObj) {
+            var id = infraObj.id + 1;
+            return this.singleGet("infrastructure", "id", id)[0];
         }
 
         ContextFactory.getTechnologie = function(infra, niveau) {

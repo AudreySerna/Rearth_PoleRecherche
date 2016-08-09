@@ -1,9 +1,12 @@
+
 var GAME_NAME = "rearth_M6Brevet";
 var NOTE_ENERGIE = "energie";
 var ELEVE_CONTEXT = "rearthm6";
 var DEFI_TECHNOLOGIQUE = "defi-technologique";
 var ACHAT_LICENCE = "achat-licence";
 var BREVET = "brevet";
+
+var GUILDES_ARRAY = ["Technologues", "Bâtisseurs", "Cyberneticiens", "Energeticiens"];
 
 var extractSingleValue = function(xmlResponse) {
     var x2js = new X2JS();

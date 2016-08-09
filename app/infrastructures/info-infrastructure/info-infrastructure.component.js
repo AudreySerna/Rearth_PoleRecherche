@@ -17,5 +17,8 @@ component('infoInfrastructure', {
         this.niveau = $routeParams.niveau;
 
         this.infrastructure = ContextFactory.getInfrastructure(this.nom);
+        // Navigation arrows
+        this.suivant = ContextFactory.getNextInfrastructure(this.infrastructure);
+        this.precedent = ContextFactory.getPreviousInfrastructure(this.infrastructure);
     }]
 });

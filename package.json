@@ -22,7 +22,7 @@
 
     "prestart": "npm install",
     
-    "start": "http-server -p 8080",
+    "start": "http-server -p 8010",
 
     "pretest": "npm install",
     "test": "karma start karma.conf.js",

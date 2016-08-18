@@ -1,1 +1,1 @@
-web: rm -rf bower_components && bower install && node server.js
+web: rm -rf bower_components && bower install && ls bower_components/ && node server.js

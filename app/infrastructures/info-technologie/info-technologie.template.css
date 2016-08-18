@@ -2,9 +2,6 @@
 	border-top: none !important;
 }
 
-.short-table {
-}
-
 .short-table > tbody > tr > td {
  	vertical-align: middle;
  	padding: 2px;
@@ -34,8 +31,4 @@
 	width:150px;
 }
 
-.tech-modal-content {
-	color: black;
-	padding-left: 15px;
-}
 

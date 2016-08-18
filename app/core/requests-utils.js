@@ -6,7 +6,7 @@ var DEFI_TECHNOLOGIQUE = "defi-technologique";
 var ACHAT_LICENCE = "achat-licence";
 var BREVET = "brevet";
 
-var GUILDES_ARRAY = ["Technologues", "Bâtisseurs", "Cyberneticiens", "Energeticiens"];
+var GUILDES_ARRAY = ["Technologues", "Batisseurs", "Cyberneticiens", "Energeticiens"];
 
 var extractSingleValue = function(xmlResponse) {
     var x2js = new X2JS();

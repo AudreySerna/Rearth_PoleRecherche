@@ -44,12 +44,14 @@
 					<td class="col-xs-1">
 						Coût tentative
 					</td>
-					<td class="col-xs-1">
-						<img class="mini-pic" alt="logo-pile" ng-src="assets/logos/petite_pile.png"/> -150
+					<td ng-repeat="coutTentativeDecouverte in $ctrl.coutsTentativeDecouverte" class="col-xs-1">
+						<img class="mini-pic" ng-src="{{coutTentativeDecouverte.icone}}"/> {{coutTentativeDecouverte.valeur | numberize}}
 					</td>
 				</tr>
 			</table>
-			<button ng-click="" class="btn btn-default btn-large center-block big-margin-top" type="submit">Découvrir !</button>
+			<button ng-if="$ctrl.solde-$ctrl.coutsTentativeDecouverte[0].valeur > 0" ng-click="$ctrl.goToExercice($ctrl.defiTechnologique, $ctrl.coutsTentativeDecouverte[0].valeur)" class="btn btn-default btn-large center-block big-margin-top" type="submit">Découvrir !</button>
+			<div align="middle" ng-if="$ctrl.solde-$ctrl.coutsTentativeDecouverte[0].valeur <= 0"><button class="btn btn-default btn-large center-block big-margin-top" type="submit" disabled>Découvrir !</button>
+			<i class="fa fa-exclamation-triangle warning-color" aria-hidden="true"></i> Pas assez de ressources</div>
 	  	</div>
 	  	<div class="col-xs-6 technologie-cout">
 	  		<h4>Achat licence</h4>
@@ -58,20 +60,22 @@
 					<td class="col-xs-1">
 						Coût tentative
 					</td>
-					<td class="col-xs-1">
-						<img class="mini-pic" alt="logo-pile" ng-src="assets/logos/petite_pile.png"/> -165
+					<td ng-repeat="coutTentativeLicence in $ctrl.coutsTentativeLicence" class="col-xs-1">
+						<img class="mini-pic" ng-src="{{coutTentativeLicence.icone}}"/> {{coutTentativeLicence.valeur | numberize}}
 					</td>
 				</tr>
 				<tr>
 					<td class="col-xs-1">
 						Frais licence/tour
 					</td>
-					<td class="col-xs-1">
-						<img class="mini-pic" alt="logo-pile" ng-src="assets/logos/petite_pile.png"/> -10
+					<td ng-repeat="coutLicence in $ctrl.coutsLicence" class="col-xs-1">
+						<img class="mini-pic" ng-src="{{coutLicence.icone}}"/> {{coutLicence.valeur | numberize}}
 					</td>
 				</tr>
 			</table>
-			<button ng-click="" class="btn btn-default btn-large center-block medium-margin-top" type="submit">Acheter licence</button>
+			<button ng-if="$ctrl.solde-$ctrl.coutsTentativeLicence[0].valeur > 0" ng-click="$ctrl.goToExercice($ctrl.achatLicence, $ctrl.coutsTentativeLicence[0].valeur)" class="btn btn-default btn-large center-block medium-margin-top" type="submit">Acheter licence</button>
+			<div align="middle" ng-if="$ctrl.solde-$ctrl.coutsTentativeLicence[0].valeur <= 0"><button class="btn btn-default btn-large center-block medium-margin-top" type="submit" disabled>Acheter licence</button>
+			<i class="fa fa-exclamation-triangle warning-color" aria-hidden="true"></i> Pas assez de ressources</div>
 	  	</div>
 	  </div>
 	</modal-dialog>

@@ -15,7 +15,7 @@ config(['$locationProvider' ,'$routeProvider',
         .when('/connect', {
             template: "<volet-connexion></volet-connexion>"
         })
-        .when('/exercice/:idExo', {
+        .when('/exercice/:type/:idExo', {
             template: "<exercice></exercice>"
         })    
         .otherwise('/connect');

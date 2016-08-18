@@ -102,16 +102,29 @@ angular.module('core.user').factory('UserFactory', ['$resource', '$localStorage'
             return extractSingleValue(resp);
         }
 
+        UserFactory.pay = function(matricule, cout) {
+            var solde = parseInt(this.getSolde(matricule));
+            solde = solde-cout;
+            if(solde < 0) {
+                solde = 0;
+            }
+            this.setSolde(matricule, solde);
+        }
+
         /**
             Retourne un objet guilde
+            TODO MARC, ajouter un parametre who en entrée : function(matricule, who)
         **/
         UserFactory.getGuilde = function(matricule) {
             var param_matricule = new xmlrpcval(matricule);
             var param_jeu = new xmlrpcval(GAME_NAME);
+            //TODO Marc - décommenter ces lignes
+            //var param_who = new xmlrpcval(who);
 
             var msg = new xmlrpcmsg('jnGetGroupe', []);
             msg.addParam(param_matricule);
             msg.addParam(param_jeu);
+            //msg.addParam(param_who);
 
             var resp = client.send(msg);
             //parsing xml response to json

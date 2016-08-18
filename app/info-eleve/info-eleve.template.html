@@ -7,13 +7,14 @@
 		{{ $ctrl.utilisateur | fullname }}
 	</div>
 	<div class="col-xs-4 info-eleve-left col-height col-middle">
-		<img class="mini-pic" alt="logo-guilde" ng-src="{{$ctrl.guilde.logo}}"/> {{$ctrl.guilde.nom}}
+		<img class="mini-pic" alt="{{$ctrl.guilde.nom.charAt(0)}}" ng-src="{{$ctrl.guilde.logo}}"/> {{$ctrl.guilde.nom}}
 	</div>
 	<div class="col-xs-2 info-eleve-left col-height col-middle" align="center">
 		<img class="mini-pic" alt="logo-pile" ng-src="https://framapic.org/aQMGxKhEukx5/11yGGPKpiF8j.png"/> {{$ctrl.solde}}
 	</div>
-	<div class="col-xs-1 info-eleve-right col-height col-middle" align="center">
+	<!-- Chat -->
+	<!--div class="col-xs-1 info-eleve-right col-height col-middle" align="center">
 		<i class="fa fa-comments fa-2x" aria-hidden="true"></i>
-	</div>
+	</div-->
 </div>
 </div>

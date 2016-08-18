@@ -6,11 +6,24 @@
 	padding-left: 15px;
 }
 
-.exercice-body img {
-	padding:30px;
-}
-
 .footer-validation {
 	padding-top: 50px;
 	padding-bottom: 10px;
+}
+
+.tech-modal-content {
+	color: black;
+	padding-left: 15px;
+}
+
+.alink {
+	color: white;
+}
+
+.alink:link {
+    text-decoration: none;
+}
+
+.alink:visited {
+    text-decoration: none;
 }

@@ -34,9 +34,9 @@
 	<div class="col-xs-3">
 		<h5>Progression</h5>
 		<div ng-repeat="guilde in $ctrl.avancementsDecouverte">
-			<img class="miniature-progress-bar" alt="logo-guilde" ng-src="assets/logos/Logo_batisseurs.png"/>
+			<img class="miniature-progress-bar" alt="{{guilde.nom.charAt(0)}}" ng-src="{{guilde.logo}}"/>
 			<div class="progress">
-			  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{guilde.count*100/$ctrl.decRequired}}" aria-valuemin="0" aria-valuemax="{{$ctrl.decRequired}}" style="width: 0%;">
+			  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{guilde.count*100/$ctrl.decRequired}}" aria-valuemin="0" aria-valuemax="{{$ctrl.decRequired}}" style="width: {{guilde.count*100/$ctrl.decRequired}}%;">
 			    {{guilde.count}}/{{$ctrl.decRequired}}
 			  </div>
 			</div>
@@ -46,19 +46,23 @@
 </div>
 <div class="row">
 	<div class="col-xs-12">
-		<button ng-click="$ctrl.modalBrevet()" class="btn btn-default center-block btn-large" type="submit">Obtenir</button>
+		<button ng-if="$ctrl.debloquable" ng-click="$ctrl.modalBrevet()" class="btn btn-default center-block btn-large" type="submit">Obtenir</button>
+		<div align="middle" ng-if="!$ctrl.debloquable"><i class="fa fa-exclamation-triangle warning-color" aria-hidden="true"></i> Vous devez d'abord débloquer le niveau précédent</div>
+  	
 	</div>
 </div>
-<modal-dialog show='$ctrl.modalShown' width='550px' height='60%'>
+<modal-dialog show='$ctrl.modalShown' width='550px' height='300px'>
   <div class="tech-modal-content">
 		<h3>Tentative de découverte</h2>
 		<p>Aucun brevet n'a été déposé pour le moment. Un brevet est déposé lorsque 3 membres d'une même guilde ont découvert la technologie. Attention, un seul brevet peut-être déposé par technologie, dépêchez-vous !</p>
 
-	<p>Il manque encore 1 <span><img alt="logo-guilde" class="mini-pic" ng-src="assets/logos/Logo_energeticien.png"/></span> pour déposer le brevet</p>
+	<!--p>Il manque encore 1 <span><img alt="logo-guilde" class="mini-pic" ng-src="assets/logos/Logo_energeticien.png"/></span> pour déposer le brevet</p-->
 
-	<p>Coût de la tentative : <img alt="logo-guilde" class="mini-pic" ng-src="assets/logos/petite_pile.png"/> -150</p>
+	<p>Coût de la tentative : <img class="mini-pic" ng-src="{{$ctrl.coutsTentativeDecouverte[0].icone}}"/> {{$ctrl.coutsTentativeDecouverte[0].valeur | numberize}}</p>
 
-	<button ng-click="" class="btn btn-default btn-large center-block big-margin-top" type="submit">Découvrir !</button>
+	<button ng-if="$ctrl.solde-$ctrl.coutsTentativeDecouverte[0].valeur > 0" ng-click="$ctrl.goToExercice($ctrl.defiTechnologique, $ctrl.coutsTentativeDecouverte[0].valeur)" class="btn btn-default btn-large center-block big-margin-top" type="submit">Découvrir !</button>
+	<div align="middle" ng-if="$ctrl.solde-$ctrl.coutsTentativeDecouverte[0].valeur <= 0"><button class="btn btn-default btn-large center-block big-margin-top" type="submit" disabled>Découvrir !</button>
+	<i class="fa fa-exclamation-triangle warning-color" aria-hidden="true"></i> Pas assez de ressources</div>
   	
   </div>
 </modal-dialog>

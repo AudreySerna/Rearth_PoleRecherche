@@ -13,6 +13,9 @@ component('voletConnexion', {
 		$localStorage.utilisateur = {};
 		$localStorage.context = {};
 		$localStorage.guilde = {};
+		$localStorage.exercice = {
+			"autorisation": false
+		}
 
         this.matricule = '';
         this.mdp = '';
@@ -20,13 +23,9 @@ component('voletConnexion', {
         this.error = false;
         this.submitted = false;
 
-        ContextFactory.setGlobalContext();
 
-        this.login = function(form) {
-
-
-			ContextFactory.setGlobalContext(); // TODO remove this line
-        	
+        this.login = function(form) {  
+        ContextFactory.setGlobalContext(); // TODO REMOVE      	
 
         	self.submitted = true;
         	// If form is invalid, return and let AngularJS show validation errors.
@@ -55,11 +54,10 @@ component('voletConnexion', {
 				ContextFactory.loadGlobalContext();
 
 				// test area
-				ContextFactory.setUserContext(); // TODO remove this line
+				ContextFactory.setUserContext(this.matricule); // TODO remove this line
 
 				$rootScope.$broadcast('refreshInfos');
-				document.getElementById('slider').classList.toggle('closed');
-				$location.path('/technologie/panneau-solaire/2');
+				$location.path('/technologie/panneau-solaire/1');
 			}
         }
     }]

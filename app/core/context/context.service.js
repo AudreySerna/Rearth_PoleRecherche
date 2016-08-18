@@ -31,10 +31,6 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             return true;
         }
 
-        ContextFactory.getGlobalContext = function() {
-            return this.context;
-        }
-
         /**
             Initialisation du contexte commun à tout Rearth M6
         **/
@@ -69,17 +65,17 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             Initialisation du contexte propre a l'application
         **/
         ContextFactory.setUserContext = function(matricule) {
-            var param_context;
 
             $http.get('assets/user-context.json').then(function(response) {
-              param_context = new xmlrpcval(JSON.stringify(response.data));
-              return ContextFactory.callbackSetUserContext(param_context, matricule);
+                var context = response.data;
+                return ContextFactory.callbackSetUserContext(context, matricule);
             });
         }
 
         // callback utilisé pour s'assurer que la suite du code sera effectué après avoir obtenu la réponse de la requête
-        ContextFactory.callbackSetUserContext = function (param_context, matricule) {
+        ContextFactory.callbackSetUserContext = function (context, matricule) {
             var param_matricule = new xmlrpcval(matricule);
+            var param_context = new xmlrpcval(JSON.stringify(context));
             var param_jeu = new xmlrpcval(GAME_NAME);
             
             var msg = new xmlrpcmsg('jnSetGameContext', []);
@@ -89,7 +85,7 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
 
             var resp = client.send(msg);
             //parsing xml response to json
-            return extractSingleValue(resp);
+            $localStorage.context = unionJson($localStorage.context, context);;
         }
 
         /**
@@ -195,17 +191,12 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             return this.award(badge, matricule);
         }
 
-        /**
-            Retourne le nom de la guilde détenant le brevet, ou false si non
-        **/
-        ContextFactory.getGuildeBrevet = function(infra, niveau) {
-            var param_matricule = new xmlrpcval(ELEVE_CONTEXT);
+        ContextFactory.getBadge = function(matricule, who, nomBadge) {
+            var param_matricule = new xmlrpcval(matricule);
             var param_jeu = new xmlrpcval(GAME_NAME);
-            var param_who = new xmlrpcval("all");
+            var param_who = new xmlrpcval(who);
 
-            var badge = this.getNomBadge(BREVET, infra, niveau);
-
-            var param_badge = new xmlrpcval(badge);
+            var param_badge = new xmlrpcval(nomBadge);
 
             var msg = new xmlrpcmsg('jnGetBadge', []);
             msg.addParam(param_matricule);
@@ -214,7 +205,16 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             msg.addParam(param_who);
             var resp = client.send(msg);
             //parsing xml response to json
-            var eleves = extractSingleValue(resp);
+            return extractSingleValue(resp);
+        }
+
+        /**
+            Retourne le nom de la guilde détenant le brevet, ou false si non
+        **/
+        ContextFactory.getGuildeBrevet = function(infra, niveau) {
+            var badge = this.getNomBadge(BREVET, infra, niveau);
+
+            var eleves = this.getBadge(ELEVE_CONTEXT, "all", badge);
             var elevesArray = eleves.split(";");
             elevesArray.pop();
 
@@ -231,25 +231,24 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             Vérifie si le badge est possédé ou non
         **/
         ContextFactory.hasBadge = function(matricule, badge) {
-            var param_matricule = new xmlrpcval(matricule);
-            var param_jeu = new xmlrpcval(GAME_NAME);
-            var param_who = new xmlrpcval("my");
-
-            var param_badge = new xmlrpcval(badge);
-
-            var msg = new xmlrpcmsg('jnGetBadge', []);
-            msg.addParam(param_matricule);
-            msg.addParam(param_jeu);
-            msg.addParam(param_badge);
-            msg.addParam(param_who);
-            var resp = client.send(msg);
-            //parsing xml response to json
-            return extractSingleValue(resp);
+            return this.getBadge(matricule, "my", badge);
         }
 
         ContextFactory.hasBrevet = function(matricule, infra, niveau) {
             var badge = this.getNomBadge(BREVET, infra, niveau);
             return this.hasBadge(matricule, badge);
+        }
+
+        /**
+            Retourne qui a découvert la technologie dans la guilde d'un eleve
+        **/
+        ContextFactory.decouvertGuilde = function(matricule, infra, niveau) {
+            var badge = this.getNomBadge(BREVET, infra, niveau);
+
+            var eleves = this.getBadge(matricule, "group", badge);
+            var elevesArray = eleves.split(";");
+            elevesArray.pop();
+            return elevesArray;
         }
 
         /**
@@ -265,28 +264,25 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
         }
 
         /**
+        TODO Marc
+            A décommenter une fois la modification du service getGroup effective
+        **/
+        /**
+        ContextFactory.getGuildes = function() {
+            var guildes = UserFactory.getGuilde(ELEVE_CONTEXT, "all");
+            var guildesArray = guildes.split(";");
+            guildesArray.pop();
+            return guildesArray;
+        }**/
+
+        /**
             Retourne le nombre de personnes ayant découvert la technologie par guilde
             Repose sur la variable GUILDES de requests-utils.js, à modifier une fois le service de récupération des guildes
         **/
         ContextFactory.getAvancementDecouverte = function(infra, niveau) {
             var badge = this.getNomBadge(DEFI_TECHNOLOGIQUE, infra, niveau);
 
-            var tou = this.hasBadge("152d", badge);
-
-            var param_matricule = new xmlrpcval(ELEVE_CONTEXT);
-            var param_jeu = new xmlrpcval(GAME_NAME);
-            var param_who = new xmlrpcval("all");
-
-            var param_badge = new xmlrpcval(badge);
-
-            var msg = new xmlrpcmsg('jnGetBadge', []);
-            msg.addParam(param_matricule);
-            msg.addParam(param_jeu);
-            msg.addParam(param_badge);
-            msg.addParam(param_who);
-            var resp = client.send(msg);
-            //parsing xml response to json
-            var eleves = extractSingleValue(resp);
+            var eleves = this.getBadge(ELEVE_CONTEXT, "all", badge);
 
             var elevesArray = eleves.split(";");
             elevesArray.pop();
@@ -294,25 +290,24 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             var guildeTmp;
 
             for(var i=0; i<GUILDES_ARRAY.length; i++) {
-                respArray[GUILDES_ARRAY[i]] = {"count":0};
+                respArray[GUILDES_ARRAY[i]] = {"count":0, "matricules" : [], "nom": GUILDES_ARRAY[i]};
             }
+            /** TODO Marc - une fois le service effectif, remplacer le for ci dessus par
+            var guildesArray = this.getGuildes();
+            for(var i=0; i<guildesArray.length; i++) {
+                respArray[i] = {"count":0, "matricules" : [], "nom": guildesArray[i]};
+            }
+            **/
 
             if(elevesArray.length > 0) {
                 // si il y a eu des découvertes
                 for(var i = 0; i<elevesArray.length; i++) {
                     // on récupere la guilde d'un des joueurs puisqu'ils doivent tous etre de la meme guilde
                     guildeTmp = UserFactory.getGuilde(elevesArray[i]);
-                    if(typeof respArray[guildeTmp.nom] == 'undefined') {
-                        respArray[guildeTmp.nom] = {
-                            "logo": guildeTmp.logo,
-                            "count": 1
-                        }; // 1 eleve comptabilisé
-                    } else {
-                        respArray[guildeTmp.nom].count += 1;
-                    }
+                    respArray[guildeTmp.nom].count += 1;
+                    respArray[guildeTmp.nom].matricules.push(elevesArray[i]);
                 }
             }
-            console.log(respArray);
             return respArray;
         }
 
@@ -371,6 +366,10 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
         ContextFactory.getTechnologie = function(infra, niveau) {
             var infraId = this.singleAttrGet("infrastructure", "urlId", infra, "id")[0];
             return this.doubleGet("technologie", "infrastructure", infraId, "niveau", niveau)[0];
+        }
+
+        ContextFactory.getExercice = function(technologie, type) {
+            return this.singleGet(type, "technologie", technologie)[0];
         }
 
         ContextFactory.getNomBadge = function(type, infra, niveau) {

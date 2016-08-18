@@ -3,7 +3,7 @@
 <div class="exercice-body">
 	<div class="row">
 		<div class="col-xs-3 retour">
-			<h4><i class="fa fa-angle-left" aria-hidden="true"></i> Retour</h4>
+			<a class="alink" ng-click="$ctrl.modalRetour()"><h4><i class="fa fa-angle-left" aria-hidden="true"></i> Retour</h4></a>
 		</div>
 		<div class="col-xs-9">
 			<info-eleve></info-eleve>
@@ -12,25 +12,14 @@
 
 	<div class="row">
 		<div class="col-xs-12">
-			<h2>Brevet habitation de niveau 2</h2>
-			<h3>Stabilité d'un petit dépôt</h3>
+			<h2>Brevet {{$ctrl.nom}} de niveau {{$ctrl.niveau}}</h2>
+			<h3>{{$ctrl.exercice.title}}</h3>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-xs-12">
-			<p>Votre ville se développe, et a besoin de stocker les ressources naturelles récoltés (bois…) à l'abri dans un dépôt. Les techniciens qui ont décidé de fabriquer le dépôt en structure métallique n'arrivent pas à stabiliser le bâtiment, dont voici la structure :</p>
-
-			<div align="middle">
-                <img alt="img-exo" ng-src="assets/img/Depot_pas_stable.png" class="img-responsive"/>
-            </div>
-
-            <p>Vous devez proposer une solution pour stabiliser ce dépôt, tout en sachant que :
-			<ul>
-				<li>Afin d’être complètement stabilisé, le bâtiment ne doit pas pouvoir se déformer (de façon importante) sur toutes les faces.</li>
-				<li>La face avant doit être totalement ouverte afin de pouvoir faire entrer les ressources.</li>
-			</ul></p>
-			 
+			<div ng-include src='$ctrl.exercice.html'></div>			 
 		</div>
 	</div>
 
@@ -39,7 +28,38 @@
 			<p>Résolvez cet exercice sur le document papier correspondant, et consultez impérativement un Grand Maître pour savoir si votre travail est suffisant pour découvrir cette technologie.</p>
 		</div>
 		<div class="col-xs-3">
-			<button ng-click="" class="btn btn-default btn-large center-block" type="submit">Vérifier exercice</button>
+			<button ng-click="$ctrl.modalValidation()" class="btn btn-default btn-large center-block" type="submit">Vérifier exercice</button>
 		</div>
 	</div>
 </div>
+
+<!-- Modal retour -->
+<modal-dialog show='$ctrl.modalRetourShown' width='550px' height="200px">
+	<div class="tech-modal-content">
+		<h3>Attention !</h3>
+		<p>Cette tentative vous a coûté des ressources. Quitter cette page vous fera échouer à l'exercice.</p>
+		<p>Êtes-vous sûr(e) de vouloir retourner à la page d'accueil ?</p>
+
+		<div class="text-center"><a ng-href="#!/technologie/{{$ctrl.infrastructure}}/{{$ctrl.niveau}}" class="btn btn-default btn-large" type="submit">Retour acceuil</a>
+		<button ng-click="$ctrl.modalRetour()" class="btn btn-danger btn-large" type="submit">Annuler</button></div>
+	</div>
+</modal-dialog>
+
+<!-- Modal validation -->
+<modal-dialog show='$ctrl.modalValidationShown' width='550px' height="200px">
+	<div class="tech-modal-content">
+		<h3>Validation de l'exercice</h3>
+		<p>Seul un Grand Maître peut effectuer la validation de l'exercice. Si ce n'est pas déjà le cas, adressez-vous à votre chef de guilde pour poursuivre.</p>
+
+		<span class="label label-danger" data-ng-show="$ctrl.submitted && $ctrl.error">Code incorrect</span>
+		<div class="input-group">
+			<input type="password" class="form-control" data-ng-model="$ctrl.code" placeholder="Code validation">
+			<div class="input-group-btn">
+			    <button ng-click="$ctrl.valider()" class="btn btn-success" type="button">Correct <i class="fa fa-check" aria-hidden="true"></i>
+				</button>
+				<button ng-click="$ctrl.invalider()" class="btn btn-danger" type="button">Incorrect <i class="fa fa-times" aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</modal-dialog>

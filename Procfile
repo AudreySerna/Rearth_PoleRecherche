@@ -1,1 +1,1 @@
-web: node server.js
+web: mkdir bower_components && node server.js

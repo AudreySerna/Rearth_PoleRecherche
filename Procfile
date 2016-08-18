@@ -1,1 +1,1 @@
-web: mkdir bower_components && node server.js
+web: rm -rf bower_components && node server.js

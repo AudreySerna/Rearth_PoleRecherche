@@ -1,1 +1,1 @@
-web: rm -rf bower_components && bower install && echo "lol" && ls bower_components/ && node server.js
+web: pwd && rm -rf bower_components && bower install && echo "lol" && ls bower_components/ && node server.js

@@ -4,7 +4,7 @@ angular.
 module('exercice').
 component('exercice', {
     templateUrl: 'exercice/exercice.template.html',
-    controller: ['$http', '$routeParams', 'ContextFactory', '$localStorage', '$location', function exerciceController($http, $routeParams, ContextFactory, $localStorage, $location) {
+    controller: ['$http', '$routeParams', 'ContextFactory', 'UserFactory', '$localStorage', '$location', function exerciceController($http, $routeParams, ContextFactory, UserFactory, $localStorage, $location) {
         var self = this;
 
         // si on accede à l'url d'exercice sans etre connecte
@@ -22,14 +22,9 @@ component('exercice', {
                 // Form vars
                 this.error = false;
                 this.submitted = false;
-
     	        this.niveau = $localStorage.exercice.niveau;
                 this.infrastructure = $localStorage.exercice.infrastructure;
     	        this.nom = $localStorage.exercice.nom;
-
-                
-                ContextFactory.getAvancementDecouverte(this.infrastructure, this.niveau);
-
     	        
     	        // Retrieve data called with component
     	        this.technologie = $routeParams.idExo;
@@ -37,6 +32,7 @@ component('exercice', {
 
     	        this.exercice = ContextFactory.getExercice(this.technologie, this.type);
 
+                // modal stuffs
                 this.modalRetourShown = false; // hiding modal at first
                 this.modalRetour = function() {
                     self.modalRetourShown = !self.modalRetourShown;
@@ -47,28 +43,42 @@ component('exercice', {
                     self.modalValidationShown = !self.modalValidationShown;
                 }
 
+                // bouton correct
                 this.valider = function() {
                     self.submitted = true;
-                    // If form is invalid, return and let AngularJS show validation errors.
+                    // Check code saisi
                     if (self.code !== self.exercice.codeValidation) {
                         self.error = true;
                         return;
                     }
 
-                    ContextFactory.awardDecouverte($localStorage.matricule, this.infrastructure, this.niveau);
-                    if(!ContextFactory.getGuildeBrevet(this.infrastructure, this.niveau)) {
-                        // si personne n'a le brevet -> calcul si brevet accordé
-                        var elevesDecouvert = ContextFactory.decouvertGuilde($localStorage.matricule, this.infrastructure, this.niveau);
-                        for(var i=0; i<elevesDecouvert.length; i++) {
-                            ContextFactory.awardBrevet()
-                        }
+                    // Attribution du badge de réussite a l'exercice
+                    if(this.type === DEFI_TECHNOLOGIQUE) {
+                        ContextFactory.awardDecouverte($localStorage.matricule, this.infrastructure, this.niveau);
+                        if(!ContextFactory.getGuildeBrevet(this.infrastructure, this.niveau)) {
+                            // si personne n'a le brevet -> calcul si brevet accordé
+                            var guilde = $localStorage.guilde;
+                            var avancement = ContextFactory.getAvancementDecouverte(this.infrastructure, this.niveau);
+                            var elevesDecouvert = avancement[guilde.nom];
+                            if(elevesDecouvert.count === NB_DEC_BREVET) {
+                                for(var i=0; i<elevesDecouvert.count; i++) {
+                                    ContextFactory.awardBrevet(elevesDecouvert.matricules[i], this.infrastructure, this.niveau);
+                                }
+                            }
+                        }   
+                    } else {
+                        ContextFactory.awardLicence($localStorage.matricule, this.infrastructure, this.niveau);   
                     }
+                    
+
+                    $location.path('/technologie/'+self.infrastructure+'/'+self.niveau);
 
                 }
 
+                // bouton incorrect
                 this.invalider = function() {
                     self.submitted = true;
-                    // If form is invalid, return and let AngularJS show validation errors.
+                    // check code saisi
                     if (self.code !== self.exercice.codeValidation) {
                         self.error = true;
                         return;

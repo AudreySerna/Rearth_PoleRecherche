@@ -9,7 +9,7 @@
 					Guilde
 				</td>
 				<td class="col-xs-1">
-					<img class="mini-pic" alt="logo-guilde" ng-src="{{ $ctrl.guilde.logo }}"/> {{ $ctrl.guilde.nom }}
+					<img class="mini-pic" alt="{{$ctrl.guilde.nom.charAt(0)}}" ng-src="{{ $ctrl.guilde.logo }}"/> {{ $ctrl.guilde.nom }}
 				</td>
 			</tr>
 			<tr ng-if="$ctrl.annuite !== 'none'">

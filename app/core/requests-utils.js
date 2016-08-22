@@ -1,10 +1,12 @@
-
+var BADGES_NV_1 = ['batisseur_1_decouverte', 'cyberneticien_1_decouverte', 'energeticien_1_decouverte', 'technologue_1_decouverte']; // Ajouter ici les nouveaux badges de niveau 1
 var GAME_NAME = "rearth_M6Brevet";
 var NOTE_ENERGIE = "energie";
 var ELEVE_CONTEXT = "rearthm6";
 var DEFI_TECHNOLOGIQUE = "defi-technologique";
 var ACHAT_LICENCE = "achat-licence";
 var BREVET = "brevet";
+// Nombre de decouvertes requises pour debloquer un brevet
+var NB_DEC_BREVET = 3;
 
 var GUILDES_ARRAY = ["Technologues", "Batisseurs", "Cyberneticiens", "Energeticiens"];
 

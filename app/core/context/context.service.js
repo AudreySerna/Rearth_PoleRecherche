@@ -146,7 +146,7 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             var msg;
             var param_badge;
 
-            var badges = ['batisseur_1_decouverte', 'cyberneticien_1_decouverte', 'energeticien_1_decouverte', 'technologue_1_decouverte'];
+            var badges = BADGES_NV_1;
 
             for (var i = 0; i < badges.length; i++) {
                 msg = new xmlrpcmsg('jnAwardBadge', []);

@@ -62,14 +62,14 @@
 			"urlId": "eolienne",
 			"nom": "eolienne",
 			"description": "L'éolienne est une machine servant à capter l'énergie émise par le vent pour la transformer en énergie mécanique. Elle permet ainsi de créer de l'énergie \"propre\" grâce aux ressources naturelles.",
-			"img": "assets/img/panneau_solaire.jpg"
+			"img": "assets/img/eoliennes.jpg"
 		},
 		{
 			"id": 3,
 			"urlId": "habitation",
 			"nom": "habitation",
 			"description": "Une habitation est tout simplement un endroit où une ou plusieurs personnes peuvent s'abriter, pour se détendre, manger, dormir. Saviez-vous qu'aux Antilles, le terme \"habitation\" désigne une exploitation agricole, servant souvent à la production du rhum ?",
-			"img": "assets/img/panneau_solaire.jpg"
+			"img": "assets/img/habitation.jpg"
 		}
 	],
 	"technologie": [

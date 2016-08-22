@@ -2,40 +2,40 @@
 	"defi-technologique": [
 		{
 			"technologie": 2,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "technologue_2_decouverte",
 			"nomBrevet" : "technologue 2"
 		},
 		{
 			"technologie": 3,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "technologue_3_decouverte",
 			"nomBrevet" : "technologue 3"
 		},
 		{
 			"technologie": 5,
-			"html": "assets/exercices/stabilite-depot.html",
-			"title": "Stabilité dun petit dépôt - brevet",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "energeticien_2_decouverte",
 			"nomBrevet" : "energeticien 2"
 		},
 		{
 			"technologie": 7,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/stabilite-depot.html",
+			"title": "Stabilité dun petit dépôt - brevet",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "batisseur_2_decouverte",
 			"nomBrevet" : "batisseur 2"
 		},
 		{
 			"technologie": 8,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "batisseur_3_decouverte",
 			"nomBrevet" : "batisseur 3"
@@ -44,36 +44,36 @@
 	"achat-licence": [
 		{
 			"technologie": 2,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "technologue_2_achat"
 		},
 		{
 			"technologie": 3,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "technologue_3_achat"
 		},
 		{
 			"technologie": 5,
-			"html": "linkToHTML",
-			"title": "Stabilité dun petit dépôt - licence",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "energeticien_2_achat"
 		},
 		{
 			"technologie": 7,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/stabilite-depot.html",
+			"title": "Stabilité dun petit dépôt - licence",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "batisseur_2_achat"
 		},
 		{
 			"technologie": 8,
-			"html": "linkToHTML",
-			"title": "titre de lexercice",
+			"html": "assets/exercices/default.html",
+			"title": "Exercice non défini",
 			"codeValidation": "rearth2016",
 			"nomBadge" : "batisseur_3_achat"
 		}

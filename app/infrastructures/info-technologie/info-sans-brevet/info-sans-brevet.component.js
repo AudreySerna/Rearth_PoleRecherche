@@ -17,7 +17,7 @@ component('infoSansBrevet', {
         }
 
         // nb de decouvertes requises pour brevet
-        this.decRequired = 3;
+        this.decRequired = NB_DEC_BREVET;
 
         // Retrieve data called with component
         this.nom = $routeParams.nom;

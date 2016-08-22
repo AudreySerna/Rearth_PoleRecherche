@@ -25,7 +25,7 @@ component('voletConnexion', {
 
 
         this.login = function(form) {  
-        ContextFactory.setGlobalContext(); // TODO REMOVE      	
+        	ContextFactory.setGlobalContext(); // pas hyper logique mais faute de mieux, c'est pour etre sur de prendre en compte les modifs      	
 
         	self.submitted = true;
         	// If form is invalid, return and let AngularJS show validation errors.
@@ -39,22 +39,20 @@ component('voletConnexion', {
 				self.error = true;
 			    return;
 			} else {
-				// if authenticated, save user profile
-				UserFactory.loadEleve(this.matricule, this.mdp);
-				$localStorage.guilde = UserFactory.getGuilde(this.matricule);
-
 				// Initialization if the game hasn't started yet
 				if(UserFactory.hasStarted(this.matricule) === 'false') {
 					ContextFactory.setUserContext(this.matricule);
-					UserFactory.initBadges(this.matricule);
+					ContextFactory.initBadges(this.matricule);
 				} else {
-					ContextFactory.loadUserContext(this.matricule);
+					//ContextFactory.loadUserContext(this.matricule);
+					ContextFactory.setUserContext(this.matricule);
+					ContextFactory.initBadges(this.matricule); // au cas ou dans le cas reel le jeu a deja commence avant l'acces a l'application
 				}
 				// Anyway, load context
 				ContextFactory.loadGlobalContext();
-
-				// test area
-				ContextFactory.setUserContext(this.matricule); // TODO remove this line
+				// if authenticated, save user profile
+				UserFactory.loadEleve(this.matricule, this.mdp);
+				$localStorage.guilde = UserFactory.getGuilde(this.matricule);
 
 				$rootScope.$broadcast('refreshInfos');
 				$location.path('/technologie/panneau-solaire/1');

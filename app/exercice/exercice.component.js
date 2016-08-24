@@ -5,6 +5,10 @@ module('exercice').
 component('exercice', {
     templateUrl: 'exercice/exercice.template.html',
     controller: ['$http', '$routeParams', 'ContextFactory', 'UserFactory', '$localStorage', '$location', function exerciceController($http, $routeParams, ContextFactory, UserFactory, $localStorage, $location) {
+        /**
+            Gère la page exercice, url : /typeExercice/idTechno
+        **/
+
         var self = this;
 
         // si on accede à l'url d'exercice sans etre connecte
@@ -16,7 +20,7 @@ component('exercice', {
             	$location.path('/technologie/panneau-solaire/1');
             }
             else {
-
+                // L'élève est autorisé a passer l'exercice
                 this.code = '';
 
                 // Form vars
@@ -54,12 +58,15 @@ component('exercice', {
 
                     // Attribution du badge de réussite a l'exercice
                     if(this.type === DEFI_TECHNOLOGIQUE) {
+                        // Découverte
                         ContextFactory.awardDecouverte($localStorage.matricule, this.infrastructure, this.niveau);
                         if(!ContextFactory.getGuildeBrevet(this.infrastructure, this.niveau)) {
                             // si personne n'a le brevet -> calcul si brevet accordé
                             var guilde = $localStorage.guilde;
                             var avancement = ContextFactory.getAvancementDecouverte(this.infrastructure, this.niveau);
+                            // on extrait de l'avancement les données qui concerne la guilde de l'élève
                             var elevesDecouvert = avancement[guilde.nom];
+                            // Si, avec cette nouvelle découverte, on atteint le quotat pour avoir le brevet, on attribue le badge de découverte
                             if(elevesDecouvert.count === NB_DEC_BREVET) {
                                 for(var i=0; i<elevesDecouvert.count; i++) {
                                     ContextFactory.awardBrevet(elevesDecouvert.matricules[i], this.infrastructure, this.niveau);
@@ -67,10 +74,11 @@ component('exercice', {
                             }
                         }   
                     } else {
+                        // Achat de licence
                         ContextFactory.awardLicence($localStorage.matricule, this.infrastructure, this.niveau);   
                     }
                     
-
+                    // Retour accueil
                     $location.path('/technologie/'+self.infrastructure+'/'+self.niveau);
 
                 }
@@ -83,7 +91,7 @@ component('exercice', {
                         self.error = true;
                         return;
                     }
-
+                    // Retour a l'accueil si l'exercice est faux
                     $location.path('/technologie/'+self.infrastructure+'/'+self.niveau);
                 }
             }

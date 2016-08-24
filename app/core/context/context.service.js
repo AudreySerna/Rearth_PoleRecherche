@@ -5,10 +5,14 @@
 
 angular.module('core.context').factory('ContextFactory', ['$resource', '$http', '$localStorage', 'UserFactory',
     function ($resource, $http, $localStorage, UserFactory) {
+        /**
+            Contient toutes les interactions avec la BD moodle ou les fichiers internes context et user-context
+        **/
 
         var ContextFactory = {};
         var self = this;
         var context = {};
+        // url pour se connecter à la base moodle
         var client = new xmlrpc_client('http://jenlab.iut-laval.univ-lemans.fr/webservice/xmlrpc/server.php?wstoken=02d1d49d6dcd67321987e99eb619254e');
 
         /**
@@ -137,7 +141,8 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
 
         
         /**
-            Accorde tous les badges de découverte de niveau pour toutes les infrastructures
+            Accorde tous les badges de découverte de niveau 1 pour toutes les infrastructures
+            Repose sur BADGES_NV_1 défini dans requests-utils.js
         **/
         ContextFactory.initBadges = function(matricule) {
             var param_matricule = new xmlrpcval(matricule);
@@ -191,6 +196,9 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             return this.award(badge, matricule);
         }
 
+        /**
+            Envoie une requête getBadge à moodle, cf doc des services web
+        **/
         ContextFactory.getBadge = function(matricule, who, nomBadge) {
             var param_matricule = new xmlrpcval(matricule);
             var param_jeu = new xmlrpcval(GAME_NAME);
@@ -277,7 +285,7 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
 
         /**
             Retourne le nombre de personnes ayant découvert la technologie par guilde
-            Repose sur la variable GUILDES de requests-utils.js, à modifier une fois le service de récupération des guildes
+            Repose sur la variable GUILDES de requests-utils.js, à modifier une fois le service de récupération des guildes sera présent
         **/
         ContextFactory.getAvancementDecouverte = function(infra, niveau) {
             var badge = this.getNomBadge(DEFI_TECHNOLOGIQUE, infra, niveau);
@@ -313,7 +321,7 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
 
 
         /** 
-            Récupere l'objet souhaité en matchant sur 1 unique attribut
+            Requêtes génériques utilisant json path
         **/
         ContextFactory.singleGet = function(path, attr, value) {
             var req = "$." + path + "[?(@."+ attr +"=='"+ value +"')]";
@@ -330,6 +338,9 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
             return jsonPath($localStorage.context, req);
         }
 
+        /**
+            Requêtes spécifiques utilisant les requêtes génériques ci-dessus
+        **/
         ContextFactory.getNiveaux = function(infra) {
             var id = this.singleAttrGet("infrastructure", "urlId", infra, "id")[0];
             return this.singleGet("technologie", "infrastructure", id);
@@ -352,7 +363,7 @@ angular.module('core.context').factory('ContextFactory', ['$resource', '$http', 
         ContextFactory.getInfrastructure = function(infra) {
             return this.singleGet("infrastructure", "urlId", infra)[0];
         }
-
+s
         ContextFactory.getPreviousInfrastructure = function(infraObj) {
             var id = infraObj.id - 1;
             return this.singleGet("infrastructure", "id", id)[0];

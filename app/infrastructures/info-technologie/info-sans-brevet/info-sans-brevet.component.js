@@ -9,6 +9,10 @@ module('infoSansBrevet').
 component('infoSansBrevet', {
     templateUrl: 'infrastructures/info-technologie/info-sans-brevet/info-sans-brevet.template.html',
     controller: ['$http', '$routeParams', 'ContextFactory', 'UserFactory', '$location', '$localStorage', function infoSansBrevetController($http, $routeParams, ContextFactory, UserFactory, $location, $localStorage) {
+        /**
+            Gestion de l'affichage des avancement des découvertes si l'élève n'a pas obtenu la technologie et qu'aucun brevet n'a été déposé
+        **/
+
         var self = this;
         
 		this.modalShown = false; // hiding modal at first
@@ -38,6 +42,7 @@ component('infoSansBrevet', {
             
         this.technologie = ContextFactory.getTechnologie(this.nom, this.niveau).id;
         this.goToExercice = function() {
+            // Securite acces exercice
             $localStorage.exercice = {
                 "autorisation": true,
                 "niveau": this.niveau,
@@ -45,7 +50,9 @@ component('infoSansBrevet', {
                 "nom": ContextFactory.getInfrastructure(this.nom).nom,
                 "technoId": this.technologie
             }
-            //TODO UserFactory.pay($localStorage.matricule, this.coutsTentativeDecouverte[0].valeur);
+            // paiement du cout de passage de l'exercice
+            UserFactory.pay($localStorage.matricule, this.coutsTentativeDecouverte[0].valeur);
+            // redirection
             $location.path('/exercice/'+ DEFI_TECHNOLOGIQUE + '/' + this.technologie);
         }
 

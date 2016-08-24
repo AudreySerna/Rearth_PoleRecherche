@@ -5,8 +5,12 @@
 
 angular.module('core.user').factory('UserFactory', ['$resource', '$localStorage',
     function ($resource, $localStorage) {
+        /**
+            Effectue l'interface avec la BD moodle pour ce qui est du ressort de l'utilisateur uniquement
+        **/
 
         var UserFactory = {};
+        // url de connexion aux webservices moodle
         var client = new xmlrpc_client('http://jenlab.iut-laval.univ-lemans.fr/webservice/xmlrpc/server.php?wstoken=02d1d49d6dcd67321987e99eb619254e');
 
 
@@ -85,6 +89,9 @@ angular.module('core.user').factory('UserFactory', ['$resource', '$localStorage'
             return extractSingleValue(resp);
         }
 
+        /**
+            Modifie le solde d'un élève
+        **/
         UserFactory.setSolde = function(matricule, valeur) {
             var param_matricule = new xmlrpcval(matricule);
             var param_jeu = new xmlrpcval(GAME_NAME);
@@ -102,6 +109,9 @@ angular.module('core.user').factory('UserFactory', ['$resource', '$localStorage'
             return extractSingleValue(resp);
         }
 
+        /**
+            Retire une somme au solde d'un élève
+        **/
         UserFactory.pay = function(matricule, cout) {
             var solde = parseInt(this.getSolde(matricule));
             solde = solde-cout;

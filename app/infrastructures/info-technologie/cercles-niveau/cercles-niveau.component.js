@@ -10,6 +10,9 @@ component('cerclesNiveau', {
     templateUrl: 'infrastructures/info-technologie/cercles-niveau/cercles-niveau.template.html',
     controller: ['$http', '$sce', '$routeParams', 'ContextFactory', 'UserFactory', '$localStorage', 
     function infoTechnologieController($http, $sce, $routeParams, ContextFactory, UserFactory, $localStorage) {
+        /**
+            Gère l'affichage des petits cerlces de navigation entre les niveaux
+        **/
         var self = this;
         
         // Retrieve data called with component
@@ -18,6 +21,7 @@ component('cerclesNiveau', {
         this.levelUrl = [];
         this.levelUrlTrusted = [];
 
+        // récupération des informations sur l'avancement dans les niveaux
         this.niveaux = ContextFactory.getNiveaux(this.nom);
         for (i = 0; i < this.niveaux.length; i++) {
             this.niveaux[i].unlocked = ContextFactory.unlocked($localStorage.matricule, this.nom, this.niveaux[i].niveau);

@@ -6,6 +6,10 @@ component('voletConnexion', {
     templateUrl: 'volet-connexion/volet-connexion.template.html',
     controller: ['$rootScope', 'UserFactory', 'ContextFactory', '$localStorage', '$location', 
 	function voletConnexionController($rootScope, UserFactory, ContextFactory, $localStorage, $location) {
+        /**
+        	Gestion de la page de connexion
+        **/
+
         var self = this;
         
         // reinit local params
@@ -55,6 +59,7 @@ component('voletConnexion', {
 				$localStorage.guilde = UserFactory.getGuilde(this.matricule);
 
 				$rootScope.$broadcast('refreshInfos');
+				// redirection
 				$location.path('/technologie/panneau-solaire/1');
 			}
         }

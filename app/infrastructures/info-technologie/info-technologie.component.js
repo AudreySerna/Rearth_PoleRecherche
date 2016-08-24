@@ -10,6 +10,10 @@ component('infoTechnologie', {
     templateUrl: 'infrastructures/info-technologie/info-technologie.template.html',
     controller: ['$http', '$routeParams', 'ContextFactory', 'UserFactory', '$localStorage', 
     function infoTechnologieController($http, $routeParams, ContextFactory, UserFactory, $localStorage) {
+        /**
+            Gère l'affichage principal d'une technologie en décidant des bons modules à afficher selon les cas
+        **/
+
         var self = this;
         this.modalShown = false; // hiding modal at first
         
@@ -22,11 +26,13 @@ component('infoTechnologie', {
         var coutsPose;
         var gains;
         var unlockedReturn = ContextFactory.unlocked($localStorage.matricule, this.nom, this.niveau);
+        // guilde possédant le brevet
         var guildeBrevet = ContextFactory.getGuildeBrevet(this.nom, this.niveau);
         this.guilde = guildeBrevet;
 
+        // Définition du template qui doit être appelé pour l'affichage, et avec quels paramètres
         if(unlockedReturn === false) {
-            // techno pas debloquee
+            // si techno pas debloquee
             this.unlocked = false;
             if(guildeBrevet !== false) {
                 // mais un brevet a deja ete depose...
@@ -38,7 +44,7 @@ component('infoTechnologie', {
                 this.templateTechno = 'sansBrevet';
             }
         } else {
-            // techno debloquee
+            // si techno debloquee
             this.unlocked = true;
             if(guildeBrevet !== false) {
                 // Un brevet a été déposé
@@ -74,7 +80,7 @@ component('infoTechnologie', {
                 this.coutsPose = ContextFactory.getFormattedCouts(this.nom, this.niveau, "pose-guilde");
         }
         
-
+        // Affichage modale
         this.modalBrevet = function() {
             self.modalShown = !self.modalShown;
         }

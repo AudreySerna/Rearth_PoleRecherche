@@ -9,6 +9,9 @@ module('infoEleve').
 component('infoEleve', {
     templateUrl: 'info-eleve/info-eleve.template.html',
     controller: ['$rootScope', '$localStorage', 'UserFactory', function infoEleveController($rootScope, $localStorage, UserFactory) {
+        /**
+            Affichage de la barre supérieur avec solde, etc
+        **/
         var self = this;
         this.solde = Math.round(UserFactory.getSolde($localStorage.matricule));
         this.utilisateur = $localStorage.utilisateur;

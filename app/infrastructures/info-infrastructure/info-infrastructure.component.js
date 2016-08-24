@@ -9,6 +9,10 @@ module('infoInfrastructure').
 component('infoInfrastructure', {
     templateUrl: 'infrastructures/info-infrastructure/info-infrastructure.template.html',
     controller: ['$http', '$routeParams', 'ContextFactory', function infoInfrastructureController($http, $routeParams, ContextFactory) {
+        /**
+            Gère l'affichage latéral des infos de l'infrastructure en cours
+        **/
+
         var self = this;
 
 
